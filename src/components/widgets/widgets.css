@@ -1,0 +1,65 @@
+.widgets {
+  overflow-y: scroll;
+  display: grid;
+  width: 100%;
+  padding: 1rem;
+  padding-right: 4rem;
+}
+
+.widgets::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE,edge and firefox */
+.feed {
+  -ms-overflow-style: none; /*IE and edge*/
+  scrollbar-width: none; /*firefox*/
+}
+
+.widgets-search {
+  color: var(--main-color);
+}
+.widgets-input {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 0 0.5rem;
+  column-gap: 0.5rem;
+  border-radius: 1.7rem;
+  background-color: #6577861e;
+  margin: 1rem 0;
+  height: 3.5rem;
+  align-items: center;
+  outline: none;
+}
+.widgets-input input {
+  background-color: #6577861e;
+  border: none;
+  color: white;
+  border-radius: 1.7rem;
+  font-size: 1.2rem;
+  align-self: stretch;
+  padding: 0 1rem;
+}
+
+.widgets-input input:focus {
+  outline: none;
+}
+
+.widgets-search {
+  margin-left: 1rem;
+}
+
+/* .thread .whats {
+  background-color: black !important;
+} */
+
+.widget-container {
+  display: grid;
+  gap: 1rem;
+  padding: ;
+}
+/* 
+.thread .whats {
+  width: 10rem !important;
+  padding-right: 2rem !important;
+} */

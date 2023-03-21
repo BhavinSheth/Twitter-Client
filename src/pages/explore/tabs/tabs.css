@@ -1,0 +1,23 @@
+.tabs-container {
+  /* height: 100%; */
+  align-self: flex-start;
+  width: 100%;
+  display: grid;
+  padding: 1.5rem;
+  gap: 1.25rem;
+}
+
+.hashtag-container {
+  display: grid;
+  align-items: center;
+  height: 3rem;
+}
+
+.hashtag {
+  font-size: 1rem;
+  color: var(--twitter-color);
+}
+
+.hashtag-count {
+  color: var(--grey3);
+}

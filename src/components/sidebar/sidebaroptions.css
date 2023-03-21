@@ -1,0 +1,36 @@
+.sidebaroptions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  color: var(--main-color);
+  border-radius: 20px;
+}
+
+.svg {
+  margin: 1rem;
+}
+
+.sidebaroptions p {
+  text-transform: capitalize;
+  color: white;
+  margin: 0;
+}
+
+.sidebaroptions:hover {
+  background-color: var(--main-color);
+  background-color: var(--clr-black-2);
+  color: var(--twitter-color);
+  transition: color 0.15s;
+  cursor: pointer;
+}
+.sidebaroptions:hover p {
+  color: var(--twitter-color);
+  transition: color 0.15s;
+}
+
+.active-sidebar {
+  color: var(--twitter-color);
+}
+.sidebaroptions .active-p {
+  color: var(--twitter-color);
+}

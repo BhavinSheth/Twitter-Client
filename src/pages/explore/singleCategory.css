@@ -1,0 +1,33 @@
+.single-category {
+  display: grid;
+  place-items: center;
+}
+
+.single-category-container:hover {
+  border-radius: 15px;
+  background-color: var(--clr-black-2);
+}
+
+.single-category-text {
+  font-size: 1.15rem;
+  color: var(--clr-grey-6);
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0;
+}
+
+.single-category-slider {
+  height: 4px;
+  background-color: var(--twitter-color);
+  width: 80%;
+  border-radius: var(--radius);
+  visibility: hidden;
+}
+
+.single-category.active .single-category-text {
+  color: white;
+}
+
+.single-category.active .single-category-slider {
+  visibility: visible;
+}

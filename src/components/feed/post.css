@@ -1,0 +1,66 @@
+.post {
+  padding: 1.2rem 0.8rem;
+  border-bottom: var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: flex-start;
+  column-gap: 10px;
+}
+
+.post-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.post-name {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  gap: 5px;
+}
+
+.image-container {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.post-name {
+  font-weight: 750;
+}
+
+.username {
+  font-weight: bold;
+  color: var(--clr-grey-5);
+}
+
+.verified {
+  color: var(--twitter-color);
+}
+
+.post-text {
+  color: var(--main-color);
+}
+
+.img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.utilites {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  color: var(--clr-grey-5);
+}
+
+.icon {
+  font-size: 3rem !important;
+  border-radius: 50%;
+  padding: 0.9rem;
+}
+
+.icon:hover {
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+  background-color: var(--clr-grey-1);
+}

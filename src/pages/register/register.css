@@ -1,0 +1,245 @@
+/* background image blur */
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(
+      180deg,
+      rgba(225, 255, 2, 0.438) 0%,
+      rgba(207, 215, 67, 0) 100%
+    ),
+    url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmxvZyUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80')
+      center/cover no-repeat fixed;
+  /* filter: blur(3px); */
+
+  animation: fade 2s forwards;
+}
+
+@keyframes fade {
+  0% {
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  100% {
+    filter: blur(3px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeLogin {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.login-page {
+  position: absolute;
+  /* z-index: 20; */
+  box-shadow: var(--dark-shadow);
+  font-size: 1.1rem;
+  border-radius: 10px;
+  transform: translateY(1rem);
+  animation: fadeLogin 1.5s forwards;
+}
+
+.login-page::after {
+  position: absolute;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  content: '';
+  width: 100%;
+  bottom: 0%;
+  height: 0.5rem;
+  background-color: var(--twitter-color);
+}
+
+.login-form {
+  border-radius: 10px;
+  display: grid;
+  justify-items: center;
+  background-color: black;
+  padding: 2rem 2rem;
+  gap: 2rem;
+}
+
+.login-form h1 {
+  color: var(--twitter-color);
+}
+
+.login-creds {
+  width: 20rem;
+  display: grid;
+  gap: 4px;
+  text-transform: capitalize;
+  color: var(--grey3);
+}
+
+.login-creds input {
+  background-color: var(--clr-black-3);
+  color: var(--grey1);
+
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.login-creds input:focus {
+  outline: 1.8px solid var(--grey3);
+}
+
+.notify {
+  text-transform: capitalize;
+  transform: translateY(-12px);
+  height: 0;
+  color: var(--clr-green-dark);
+  transition: 0.2s ease-out height;
+}
+
+.notify-visible {
+  height: 1rem;
+}
+
+.red {
+  color: var(--clr-red-dark);
+}
+
+.login-btn {
+  width: 100% !important;
+  margin: 1.5rem 0;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 400px) {
+  .login-page {
+    width: 95vw;
+  }
+  .login-creds {
+    width: auto;
+  }
+}
+
+.auth-redirect {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  text-transform: capitalize;
+}
+
+.auth-redirect p {
+  margin-right: 1rem;
+}
+
+.auth-redirect p + a {
+  text-decoration: none !important;
+  position: relative;
+  color: blueviolet;
+  transition: var(--transition);
+}
+
+.auth-redirect p + a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  display: block;
+  background: blueviolet;
+  transition: 300ms;
+}
+
+.auth-redirect p + a:hover {
+  text-decoration: none !important;
+}
+
+.auth-redirect p + a:hover::after {
+  width: 100%;
+}
+
+.login-password {
+  position: relative;
+  display: grid;
+}
+
+.login-eye {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.65rem;
+  color: var(--clr-gray-5);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.login-eye:hover {
+  color: var(--twitter-color);
+}
+
+.login-yellow {
+  color: var(--clr-main);
+}
+
+.register-creds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 790px) {
+  .r-auto {
+    width: auto;
+  }
+  .register-creds {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .register-creds {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .login-creds {
+    width: 100%;
+  }
+  .register-page {
+    width: 80vw;
+    margin-top: 12rem;
+  }
+  .login-page {
+    width: 80vw;
+  }
+  .register-wrapper {
+    min-height: 130vh;
+  }
+}
+
+.register-select {
+  background-color: var(--clr-black-3);
+  color: var(--grey1);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.login-form a {
+  text-transform: capitalize;
+  margin-top: -1rem;
+  color: var(--twitter-color);
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.login-links {
+  display: grid;
+  place-items: center;
+  /* gap: 1rem; */
+}

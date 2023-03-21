@@ -1,0 +1,33 @@
+.feed {
+  /* min-width: fit-content; */
+  border-right: var(--border);
+  overflow-y: scroll;
+}
+
+.feed-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.65);
+  /* box-shadow: var(--light-shadow-white); */
+  padding: 20px 20px;
+  opacity: 0.97;
+  backdrop-filter: blur(12px);
+}
+
+/* hides scrollbar for chrome,safari and opera */
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE,edge and firefox */
+.feed {
+  -ms-overflow-style: none; /*IE and edge*/
+  scrollbar-width: none; /*firefox*/
+}
+
+.feed-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  opacity: 1;
+}

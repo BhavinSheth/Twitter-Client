@@ -1,0 +1,49 @@
+{
+  "name": "tour",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@mui/material": "^5.2.1",
+    "@react-oauth/google": "^0.8.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^1.3.4",
+    "firebase": "^9.13.0",
+    "mongoose": "^6.2.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^9.1.1",
+    "react-twitter-embed": "^3.0.3",
+    "react-uuid": "^2.0.0",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "set PORT=5000 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

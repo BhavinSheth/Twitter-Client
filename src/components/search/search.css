@@ -1,0 +1,33 @@
+.container-input {
+  position: relative;
+}
+
+.input {
+  background-color: var(--clr-gray-2);
+  color: var(--clr-grey-9);
+  height: 2.5rem;
+  width: 200px;
+  padding: 10px 0px 10px 40px;
+  border: none;
+  border-radius: 9999px;
+  transition: var(--transition);
+  outline: none;
+  opacity: 1;
+  font-size: medium;
+}
+
+.container-input svg {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(0, -50%);
+}
+
+.input:focus {
+  border: solid 1.7px var(--twitter-color);
+  width: 300px;
+}
+
+.input::placeholder {
+  color: var(--grey4);
+}
