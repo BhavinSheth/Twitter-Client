@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/sidebar/sidebar'
 
 const sharedLayout = () => {
-  console.log('shared layout')
   return (
     <div className="app">
       <Sidebar />

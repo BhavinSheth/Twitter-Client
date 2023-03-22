@@ -2,22 +2,22 @@ import axios from 'axios'
 import React, { useReducer, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
-  GET_TRENDS_END,
   GET_TRENDS_ERROR,
   GET_TRENDS_START,
   GET_TRENDS_SUCCESS,
   SERVER_BASE_URL,
-  SETUP_USER,
-  START_APP_SETUP,
+  USER_SETUP_ERROR,
+  USER_SETUP_SUCCESS,
+  USER_SETUP_START,
 } from './globalConstants'
 
 import reducer from './reducer'
 
 const initialState = {
   user: undefined,
-  isLoading: false,
   isLoggedIn: false,
-  category: '',
+  isLoading: false,
+  category: 'news',
   trends: {},
   count: 0,
 }
@@ -27,13 +27,23 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   // const [navState, setNavState] = useState('home')
   const [state, dispatch] = useReducer(reducer, initialState)
-  // const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   const getTokenAndUserFromLocalStorage = () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'))
     const user = JSON.parse(localStorage.getItem('user'))
 
-    dispatch({ type: SETUP_USER, payload: { accessToken, user } })
+    if (accessToken && user) {
+      console.log('aces token and user set succesfuly')
+      const isloggedIn = true
+      dispatch({
+        type: USER_SETUP_SUCCESS,
+        payload: { accessToken, user },
+      })
+    } else {
+      dispatch({ type: USER_SETUP_ERROR })
+      // toast.error('something went wrong during intial setup')
+    }
   }
 
   const setTokenAndUserToLocalStorage = (token, user) => {
@@ -59,21 +69,29 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  // const setupApp = () => {
-  //   dispatch({ type: START_APP_SETUP })
-  // }
+  const setupApp = () => {
+    dispatch({ type: USER_SETUP_START })
+    getTokenAndUserFromLocalStorage()
+  }
 
   useEffect(() => {
-    console.log('context rendeered')
-    getTokenAndUserFromLocalStorage()
-    // window.addEventListener('resize', () => {
-    //   setScreenWidth(window.innerWidth)
-    // })
+    console.log(
+      'context rendeered',
+      'in appProvider useffect logged in : ',
+      state.isLoggedIn
+    )
 
-    // return () => {
-    //   window.removeEventListener('resize')
-    // }
-    // setupApp()
+    setupApp()
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setScreenWidth(window.innerWidth)
+    })
+
+    return () => {
+      window.removeEventListener('resize')
+    }
   }, [])
 
   return (
@@ -82,7 +100,7 @@ const AppProvider = ({ children }) => {
         ...state,
         // navState,
         // setNavState,
-        // screenWidth,
+        screenWidth,
         getTrends,
         setTokenAndUserToLocalStorage,
         dispatch,

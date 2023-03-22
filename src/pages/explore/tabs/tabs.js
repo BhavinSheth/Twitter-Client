@@ -7,16 +7,14 @@ import './tabs.css'
 import uuid from 'react-uuid'
 
 function Tabs() {
-  const { trends, getTrends, category } = useAppContext()
+  const { trends, getTrends } = useAppContext()
   const { category: urlCategory } = useParams()
-  var c = 1
-  console.log()
-  c++
+
+  async function fetchData() {
+    await getTrends(urlCategory)
+  }
+
   useEffect(() => {
-    console.log('useeffect called', c)
-    async function fetchData() {
-      await getTrends(urlCategory)
-    }
     fetchData()
   }, [urlCategory])
 

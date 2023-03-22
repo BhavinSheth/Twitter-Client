@@ -1,13 +1,12 @@
 import {
-  GET_TRENDS_END,
   GET_TRENDS_ERROR,
   GET_TRENDS_START,
   GET_TRENDS_SUCCESS,
-  SETUP_USER,
-  SET_ACCESS_TOKEN,
-  START_APP_SETUP,
   START_SPINNER,
   STOP_SPINNER,
+  USER_SETUP_START,
+  USER_SETUP_SUCCESS,
+  USER_SETUP_ERROR,
 } from './globalConstants'
 import { initialState } from './appContext'
 
@@ -31,11 +30,25 @@ const reducer = (state, action) => {
         isLoading: false,
       }
 
-    case SETUP_USER:
+    case USER_SETUP_START:
       return {
         ...state,
-        accessToken: action.payload.accesstoken,
-        user: { ...state.user, ...action.payload.user },
+        isLoading: true,
+      }
+
+    case USER_SETUP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+      }
+    case USER_SETUP_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
       }
 
     case GET_TRENDS_START:
