@@ -7,6 +7,9 @@ const constants = [
   'educational',
   'games',
   'politics',
+  'movies',
+  'lifestyle',
+  'philosophy',
   'others',
 ]
 

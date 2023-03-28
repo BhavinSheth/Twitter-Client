@@ -17,7 +17,7 @@ import sidebarData from './sidebarData'
 import { useAppContext } from '../../context/appContext'
 
 function Sidebar() {
-  const [id, setId] = useState(1)
+  const [id, setId] = useState(2)
   const { screenWidth } = useAppContext()
 
   return (

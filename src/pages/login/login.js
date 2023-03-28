@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../register/register.css'
 import { useAppContext } from '../../context/appContext'
 import axios from 'axios'
@@ -15,7 +15,8 @@ const GOOGLE_CLIENT_ID =
   '1090090266803-m8vlo8s7h6tapjjf3heu46pt5pokdr4t.apps.googleusercontent.com'
 
 function Login() {
-  const { dispatch, setTokenAndUserToLocalStorage, user } = useAppContext()
+  const { dispatch, setTokenAndUserToLocalStorage } = useAppContext()
+  const navigate = useNavigate()
 
   const [password, showPassword] = useState(false)
 
@@ -38,9 +39,10 @@ function Login() {
       const { token, user } = res.data
 
       setTokenAndUserToLocalStorage(token, user)
-      toast.success(`${user.name} logged in succesfully`)
 
       console.log(res.data)
+      navigate('/home')
+      toast.success(`${user.name} logged in succesfully`)
     } catch (error) {
       toast.error(`${error.response.data.message}`)
       console.log(error.response)
@@ -60,9 +62,10 @@ function Login() {
     const { token, user } = res.data
 
     setTokenAndUserToLocalStorage(token, user)
-    toast.success(`${user.name} logged in succesfully`)
 
     console.log(res)
+    toast.success(`${user.name} logged in succesfully`)
+    navigate('/home')
 
     dispatch({ type: STOP_SPINNER })
   }
@@ -132,7 +135,7 @@ function Login() {
                     Register
                   </Link>
                 </div>
-                <Link to="/home" id="skip">
+                <Link to="/explore" id="skip">
                   skip
                 </Link>
               </div>

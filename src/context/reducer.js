@@ -43,6 +43,7 @@ const reducer = (state, action) => {
         isLoggedIn: true,
         user: action.payload.user,
         accessToken: action.payload.accessToken,
+        bearerToken: `Bearer ${action.payload.accessToken}`,
       }
     case USER_SETUP_ERROR:
       return {

@@ -13,12 +13,56 @@ import {
 
 import reducer from './reducer'
 
+const user = JSON.parse(localStorage.getItem('user'))
+const accessToken = JSON.parse(localStorage.getItem('accessToken'))
+
 const initialState = {
-  user: undefined,
-  isLoggedIn: false,
+  user: user,
+  accessToken: accessToken,
+  configs: {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+  isLoggedIn: user ? true : false,
   isLoading: false,
   category: 'news',
   trends: {},
+  searchText: '',
+  displayItems: [
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+  ],
+  allItems: [
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+    'bhavin',
+    'kiran',
+    'sheth',
+  ],
   count: 0,
 }
 
@@ -34,8 +78,6 @@ const AppProvider = ({ children }) => {
     const user = JSON.parse(localStorage.getItem('user'))
 
     if (accessToken && user) {
-      console.log('aces token and user set succesfuly')
-      const isloggedIn = true
       dispatch({
         type: USER_SETUP_SUCCESS,
         payload: { accessToken, user },
@@ -44,6 +86,7 @@ const AppProvider = ({ children }) => {
       dispatch({ type: USER_SETUP_ERROR })
       // toast.error('something went wrong during intial setup')
     }
+    console.log('access token and user set succesfully', state)
   }
 
   const setTokenAndUserToLocalStorage = (token, user) => {
@@ -71,18 +114,18 @@ const AppProvider = ({ children }) => {
 
   const setupApp = () => {
     dispatch({ type: USER_SETUP_START })
+    console.log('setup started', state.isLoading)
     getTokenAndUserFromLocalStorage()
   }
 
   useEffect(() => {
-    console.log(
+    // setupApp()
+    console.error(
       'context rendeered',
-      'in appProvider useffect logged in : ',
-      state.isLoggedIn
+      'in appProvider useffect isLoggedIn : ',
+      state
     )
-
-    setupApp()
-  }, [])
+  }, [state.isLoggedIn])
 
   useEffect(() => {
     window.addEventListener('resize', () => {

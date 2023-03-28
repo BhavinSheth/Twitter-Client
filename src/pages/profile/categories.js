@@ -12,7 +12,7 @@ export const Categories = ({ categories, prefix }) => {
   console.log('category rendered')
 
   return (
-    <div ref={container} className="categories" onWheel={scroll}>
+    <div ref={container} className="categories profile" onWheel={scroll}>
       {categories.map((item, index) => {
         return <SingleCategory key={index} item={item} prefix={prefix} />
       })}

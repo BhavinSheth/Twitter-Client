@@ -15,4 +15,5 @@ export const GET_TRENDS_END = 'GET_TRENDS_END'
 export const GET_TRENDS_SUCCESS = 'GET_TRENDS_SUCCESS'
 export const GET_TRENDS_ERROR = 'GET_TRENDS_ERROR'
 
+export const TWEET_MAX_LENGTH = 100
 export const SERVER_BASE_URL = 'http://localhost:3000'

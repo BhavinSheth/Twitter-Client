@@ -10,18 +10,32 @@ import Tabs from './pages/explore/tabs/tabs'
 import Home from './pages/home/home'
 import Protected from './components/Protected'
 import { useAppContext } from './context/appContext'
+import Profile from './pages/profile/profile'
+import ProfileOutlet from './pages/ProfileOutlet'
+import SingleTweetPage from './pages/single-tweet/SingleTweet'
 
 function App() {
+  const { isLoggedIn } = useAppContext()
   return (
     <Routes>
       <Route path="/" Component={sharedLayout}>
-        <Route path="explore" Component={Explore}>
-          {/* <Route index element={<Tabs />}></Route> */}
+        <Route path="/:userName" Component={Profile}>
+          <Route index Component={ProfileOutlet}></Route>
+          <Route path=":param" Component={ProfileOutlet}></Route>
+        </Route>
+        <Route
+          path="/:userName/status/:tweetId"
+          Component={SingleTweetPage}
+        ></Route>
 
+        <Route path="explore" Component={Explore}>
           <Route path={`tabs/:category`} Component={Tabs}></Route>
         </Route>
 
-        <Route path="home" element={<Protected Component={Home} />}></Route>
+        <Route
+          path="home"
+          element={<Protected protectedComponent={<Home />} />}
+        ></Route>
       </Route>
 
       <Route path="/register" Component={Register}></Route>

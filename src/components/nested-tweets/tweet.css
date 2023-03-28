@@ -1,0 +1,27 @@
+.post-nested {
+  height: 100%;
+  overflow: hidden;
+}
+
+.vertical-line {
+  height: 100%;
+  width: 1px;
+  background-color: var(--twitter-color);
+  margin-left: 1.99rem;
+}
+
+.vertical-line.parent {
+  height: 1.2rem;
+}
+
+.post-avatar.nested {
+  margin-top: 0;
+}
+
+.mg-bottom-0 {
+  margin-bottom: 0;
+}
+
+.border-bottom-0 {
+  border-bottom: 0;
+}

@@ -1,0 +1,9 @@
+.home {
+  height: 100vh !important;
+  border-right: var(--border);
+  overflow-y: scroll;
+}
+
+.home::-webkit-scrollbar {
+  display: none;
+}

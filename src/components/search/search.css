@@ -16,7 +16,7 @@
   font-size: medium;
 }
 
-.container-input svg {
+.container-input .svg-search {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -30,4 +30,145 @@
 
 .input::placeholder {
   color: var(--grey4);
+}
+
+.search-bar {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 1.5rem;
+  transform: translateX(10px);
+}
+
+.search-icon {
+  color: black;
+  border: black solid 2px;
+  background-color: var(--twitter-color);
+  font-size: 3rem;
+  border-radius: 50%;
+  padding: 5px;
+  z-index: 1;
+}
+
+.search-area {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 0.42rem 0.7rem;
+  padding-left: 2rem;
+  color: var(--clr-grey-9);
+  background-color: black;
+  border: none;
+  outline: none;
+  transform: translateX(-1.5rem);
+}
+
+@media screen and (min-width: 800px) {
+  .search-area {
+    min-width: 25rem;
+  }
+}
+
+.search-area::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--clr-grey-7);
+  color: #888;
+  opacity: 1; /* Firefox */
+}
+
+.search-area:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--clr-grey-7);
+}
+
+.search-area::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--clr-grey-7);
+}
+
+@media screen and (min-width: 800px) {
+  .search-bar {
+    min-width: 20rem;
+  }
+}
+
+/* ------------------LIST BAR-------------- */
+
+.list-wrapper {
+  font-size: medium;
+  position: absolute;
+  top: 120%;
+  left: calc(50%);
+  transform: translateX(-45%);
+  z-index: 1;
+
+  width: 16.5rem;
+}
+
+.list {
+  display: grid;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: var(--dark-shadow);
+  max-width: 15rem;
+  max-height: 15rem;
+  background-color: var(--clr-black-2);
+  overflow-y: scroll;
+  opacity: 0.9;
+}
+
+.list::-webkit-scrollbar {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 5px;
+  background-color: var(--clr-grey-1);
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--twitter-color);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.single-search {
+  padding: 10px 1rem;
+  display: flex;
+  justify-content: space-between;
+  transition: var(--transition);
+  color: var(--grey1);
+  /* color: var(--twitter-color); */
+}
+
+.single-search:hover {
+  background-color: var(--clr-black-4);
+  cursor: pointer;
+  color: white;
+  color: var(--twitter-color);
+}
+
+.single-search span {
+  color: var(--clr-shade);
+}
+
+.single-search:hover span {
+  color: var(--twitter-color);
+}
+
+.close-notification {
+  font-size: 1.1rem !important;
+  color: white !important;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  transition: 0.4s all ease-out;
+}
+
+.close-notification:hover {
+  color: red !important;
+  cursor: pointer;
+}
+
+.close-list {
+  top: 0;
+  right: 0;
+  font-size: 1.3rem !important;
 }

@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { useAppContext } from '../context/appContext'
 
-function Protected({ Component }) {
-  const { user, isLoggedIn } = useAppContext()
+function Protected({ protectedComponent }) {
+  const { isLoggedIn } = useAppContext()
   const navigate = useNavigate()
-  console.log(user, isLoggedIn)
   useEffect(() => {
-    if (!isLoggedIn) navigate('/login')
+    if (!isLoggedIn) {
+      navigate('/login')
+      toast.warning('you need to login first')
+    }
   }, [])
 
-  return <div>{Component}</div>
+  return <>{protectedComponent}</>
 }
 
 export default Protected

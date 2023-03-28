@@ -4,6 +4,7 @@ import { Search } from '../../components/search/search'
 
 import { useAppContext } from '../../context/appContext'
 import { Categories } from './categories'
+import trendCategories from './constants'
 
 const Explore = () => {
   // const { category } = useAppContext()
@@ -14,7 +15,7 @@ const Explore = () => {
       <div className="explore">
         <div className="explore-headers place-center">
           <Search />
-          <Categories />
+          <Categories categories={trendCategories} prefix={'tabs/'} />
         </div>
         <Outlet />
       </div>

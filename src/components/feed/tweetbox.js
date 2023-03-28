@@ -1,45 +1,101 @@
 import React, { useState } from 'react'
 import './tweetbox.css'
 import { Avatar, Button } from '@material-ui/core'
-import { getFirestore, collection, doc, setDoc } from 'firebase/firestore/lite'
-import db from '../../firebase'
-import { useEffect } from 'react'
+import { useAppContext } from '../../context/appContext'
+import { CircularProgressbar } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
+import {
+  SERVER_BASE_URL,
+  START_SPINNER,
+  STOP_SPINNER,
+  TWEET_MAX_LENGTH,
+} from '../../context/globalConstants'
+import ColoredText from '../ColoredText'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import ColoredTextArea from '../ColoredTextArea'
+const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png`
 
 function TweetBox() {
-  const [tweet, setTweet] = useState('')
+  const [text, setText] = useState('')
+  const { user, configs, dispatch } = useAppContext()
 
   const submitTweet = async (e) => {
-    // console.log('entererd')
+    dispatch({ type: START_SPINNER })
+
     e.preventDefault()
     try {
-      const res = await setDoc(doc(db, 'posts', 'randon'), {
-        userName: 'kiran sheth',
-        displayName: 'kiran78',
-        text: tweet,
-      })
-
-      console.log(res)
+      const res = await axios.post(
+        `${SERVER_BASE_URL}/${user.userName}/tweets`,
+        { text },
+        configs
+      )
+      toast.success('Tweet created succesfully')
     } catch (error) {
+      toast.error(error.response ? error.response.data.message : error.message)
       console.log(error)
     }
+
+    dispatch({ type: STOP_SPINNER })
+  }
+
+  const getColor = () => {
+    const remainingLength = TWEET_MAX_LENGTH - text.length
+    if (remainingLength <= 0) return 'red'
+    if (remainingLength <= 20) return 'yellowgreen'
+    return 'var(--twitter-color)'
+  }
+
+  const progressBarStyles = {
+    root: {
+      width: '2.05rem',
+    },
+    text: {
+      fontSize: '2.3rem',
+      fill: getColor(),
+      color: 'red',
+    },
+    trail: {
+      stroke: '',
+    },
+    path: {
+      stroke: getColor(),
+      color: 'red',
+    },
   }
 
   return (
     <div className="tweetBox">
       <form>
-        <div className="input">
-          <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png"></Avatar>
+        <div className="tweetBox-input">
+          <Avatar src={`${user && user.profileImg}`}></Avatar>
           <input
-            value={tweet}
-            onChange={(e) => setTweet(e.target.value)}
+            value={text}
             type="text"
             placeholder="what's happening?"
             className="text-area"
-          />
+            onChange={(e) => setText(e.target.value)}
+          ></input>
+
+          <ColoredText text={text} />
         </div>
-        <Button onClick={submitTweet} className="tweetbox-tweet">
-          TWEET
-        </Button>
+        <div className="tools-area">
+          {text.length >= 1 && (
+            <CircularProgressbar
+              className="progress-bar"
+              text={
+                text.length >= TWEET_MAX_LENGTH - 20 &&
+                (TWEET_MAX_LENGTH - text.length).toString()
+              }
+              value={text.length}
+              maxValue={TWEET_MAX_LENGTH}
+              styles={progressBarStyles}
+            />
+          )}
+          <Button onClick={submitTweet} className="tweetbox-tweet">
+            TWEET
+          </Button>
+        </div>
       </form>
     </div>
   )
