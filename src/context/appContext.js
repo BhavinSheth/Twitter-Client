@@ -9,6 +9,14 @@ import {
   USER_SETUP_ERROR,
   USER_SETUP_SUCCESS,
   USER_SETUP_START,
+  GET_HOMEPAGE_TWEETS_START,
+  GET_HOMEPAGE_TWEETS_SUCCESS,
+  GET_HOMEPAGE_TWEETS_ERROR,
+  GET_USER_PROFILE_START,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_ERROR,
+  START_SPINNER,
+  STOP_SPINNER,
 } from './globalConstants'
 
 import reducer from './reducer'
@@ -26,6 +34,8 @@ const initialState = {
   },
   isLoggedIn: user ? true : false,
   isLoading: false,
+  isWaiting: false,
+  status: 'follow',
   category: 'news',
   trends: {},
   searchText: '',
@@ -63,6 +73,7 @@ const initialState = {
     'kiran',
     'sheth',
   ],
+  homePageTweets: [],
   count: 0,
 }
 
@@ -112,20 +123,44 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const getHomePageTweets = async () => {
+    dispatch({ type: GET_HOMEPAGE_TWEETS_START })
+    try {
+      const res = await axios.get(`${SERVER_BASE_URL}/home`)
+      const { data } = res
+      dispatch({ type: GET_HOMEPAGE_TWEETS_SUCCESS, payload: { data } })
+      console.log(res)
+    } catch (error) {
+      toast.error(error.response ? error.response.data.message : error.message)
+      console.log(error)
+      dispatch({ type: GET_HOMEPAGE_TWEETS_ERROR })
+    }
+  }
+
   const setupApp = () => {
     dispatch({ type: USER_SETUP_START })
     console.log('setup started', state.isLoading)
     getTokenAndUserFromLocalStorage()
   }
 
+  const getUserProfile = async (username) => {
+    dispatch({ type: GET_USER_PROFILE_START })
+    try {
+      const res = await axios.get(`${SERVER_BASE_URL}/${username}`)
+      console.log('in user profile', res.data)
+      const { data } = res
+      dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: { data } })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+
+      dispatch({ type: GET_USER_PROFILE_ERROR })
+    }
+  }
+
   useEffect(() => {
     // setupApp()
-    console.error(
-      'context rendeered',
-      'in appProvider useffect isLoggedIn : ',
-      state
-    )
-  }, [state.isLoggedIn])
+  }, [])
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -146,6 +181,8 @@ const AppProvider = ({ children }) => {
         screenWidth,
         getTrends,
         setTokenAndUserToLocalStorage,
+        getHomePageTweets,
+        getUserProfile,
         dispatch,
         // increaseCount,
       }}

@@ -4,7 +4,6 @@ import Feed from '../components/feed/feed'
 
 function ProfileOutlet() {
   const { param } = useParams()
-  console.log(param)
   switch (param) {
     case 'tweets':
       return <Feed />
@@ -22,7 +21,7 @@ function ProfileOutlet() {
       return <h1>following</h1>
 
     default:
-      return <h1>tweet</h1>
+      return <Feed />
   }
 }
 

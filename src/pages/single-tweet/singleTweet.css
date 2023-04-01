@@ -1,3 +1,8 @@
 .single-tweet-container {
   border-right: var(--border);
+  overflow: scroll;
+}
+
+.single-tweet-container::-webkit-scrollbar {
+  display: none;
 }

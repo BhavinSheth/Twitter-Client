@@ -1,6 +1,7 @@
 .feed {
   border-right: var(--border);
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  height: 100%;
 }
 
 .feed-header {

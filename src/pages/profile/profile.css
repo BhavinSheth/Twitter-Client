@@ -2,7 +2,7 @@
   display: grid;
   height: 100vh;
   border-right: var(--border);
-  gap: 2rem;
+  gap: 1.5rem;
   overflow-y: scroll;
 }
 .profile-container::-webkit-scrollbar {

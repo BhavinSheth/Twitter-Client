@@ -31,6 +31,7 @@ ReactDOM.render(
       draggable
       pauseOnHover
       theme="light"
+      style={{ textTransform: 'capitalize' }}
     />
   </React.StrictMode>,
   document.getElementById('root')

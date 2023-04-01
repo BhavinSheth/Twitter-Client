@@ -7,7 +7,11 @@ function ColoredText({ text, setText, className }) {
       {words.map((word, index) => {
         if (word.startsWith('#') || word.startsWith('@')) {
           return (
-            <span key={index} style={{ color: 'var(--twitter-color)' }}>
+            <span
+              className={className}
+              key={index}
+              style={{ color: 'var(--twitter-color)' }}
+            >
               {word}{' '}
             </span>
           )

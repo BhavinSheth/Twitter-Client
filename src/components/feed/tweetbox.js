@@ -13,12 +13,13 @@ import {
 import ColoredText from '../ColoredText'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import ColoredTextArea from '../ColoredTextArea'
+import { useRef } from 'react'
 const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png`
 
 function TweetBox() {
   const [text, setText] = useState('')
   const { user, configs, dispatch } = useAppContext()
+  const { tweetRef } = useRef(null)
 
   const submitTweet = async (e) => {
     dispatch({ type: START_SPINNER })
@@ -64,20 +65,23 @@ function TweetBox() {
     },
   }
 
+  const handleInput = (e) => {
+    setText(e.target.value)
+  }
+
   return (
     <div className="tweetBox">
       <form>
         <div className="tweetBox-input">
           <Avatar src={`${user && user.profileImg}`}></Avatar>
-          <input
-            value={text}
+          <textarea
+            contentEditable="true"
+            ref={tweetRef}
             type="text"
             placeholder="what's happening?"
             className="text-area"
-            onChange={(e) => setText(e.target.value)}
-          ></input>
-
-          <ColoredText text={text} />
+            onChange={handleInput}
+          ></textarea>
         </div>
         <div className="tools-area">
           {text.length >= 1 && (

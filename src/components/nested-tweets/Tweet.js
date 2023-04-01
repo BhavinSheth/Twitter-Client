@@ -2,14 +2,15 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
-import Comment from '@material-ui/icons/ChatBubbleOutline'
-import Retweet from '@material-ui/icons/Repeat'
-import Like from '@material-ui/icons/FavoriteBorder'
+
 import ColoredText from '../ColoredText'
 import './tweet.css'
+import { Link } from 'react-router-dom'
+import { CLIENT_BASE_URL } from '../../context/globalConstants'
+import Utilities from './Utilities'
 
 function Tweet({
-  main,
+  _id,
   likes,
   retweets,
   comments,
@@ -17,49 +18,46 @@ function Tweet({
   text,
   parent,
   child,
+  getHomePageTweets,
 }) {
   const { name, userName, profileImg, isVerified } = createdBy
 
   return (
-    <div className={`post ${child && 'border-bottom-0'}`}>
+    <Link
+      to={`${CLIENT_BASE_URL}/${userName}/status/${_id}`}
+      className={`post ${child && 'border-bottom-0'}`}
+    >
       <div className="post-nested">
         {parent && <div className="vertical-line parent" />}
-        <Avatar
-          className={`post-avatar ${parent && 'nested'}`}
-          nested
-          src={profileImg}
-        ></Avatar>
+        <Link to={`${CLIENT_BASE_URL}/${userName}`}>
+          <Avatar
+            className={`post-avatar ${parent && 'nested'} `}
+            nested
+            src={profileImg}
+          />
+        </Link>
         {child && <div className="vertical-line" />}
       </div>
       <div className={`post-info ${child && 'mg-bottom-0'}`}>
-        <div className="post-name">
+        <div className={`post-name`}>
           {name}
           <span>{isVerified && <VerifiedUserIcon className="verified" />}</span>
           <span className="username">@{userName}</span>
         </div>
         {/* <div className="post-text">{text}</div> */}
-        <ColoredText className="post-text" text={text} />
+        <ColoredText className={`post-text`} text={text} />
         {/* <div className="image-container">
           <img src={image} alt="" className="img" width={'400px'} />
         </div> */}
-        <div className="utilites">
-          <div className="icon-container">
-            <Comment className="icon" />
-            <div className="icon-values">{comments.length} </div>
-          </div>
-
-          <div className="icon-container">
-            <Retweet className="icon" />
-            <div className="icon-values">{retweets.length} </div>
-          </div>
-
-          <div className="icon-container">
-            <Like className="icon" />
-            <div className="icon-values">{likes.length} </div>
-          </div>
-        </div>
+        <Utilities
+          comments={comments}
+          likes={likes}
+          retweets={retweets}
+          userName={userName}
+          tweetId={_id}
+        />
       </div>
-    </div>
+    </Link>
   )
 }
 

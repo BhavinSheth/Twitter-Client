@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { SERVER_BASE_URL } from '../../context/globalConstants'
 import Tweet from './Tweet'
+import MainTweet from './MainTweet'
 
 function TweetContainer({ main, showComments, tweetId, userName, child }) {
   const [localTweet, setLocalTweet] = useState()
@@ -22,7 +23,7 @@ function TweetContainer({ main, showComments, tweetId, userName, child }) {
 
   useEffect(() => {
     getSingleTweet()
-  }, [])
+  }, [tweetId])
 
   return (
     <>
@@ -34,13 +35,26 @@ function TweetContainer({ main, showComments, tweetId, userName, child }) {
         />
       )}
 
-      {localTweet && (
-        <Tweet
-          {...localTweet}
-          parent={localTweet.parentPost && true}
-          child={child && true}
-        />
-      )}
+      {localTweet &&
+        (main ? (
+          <MainTweet
+            {...localTweet}
+            parent={localTweet.parentPost && true}
+            child={child && true}
+          />
+        ) : (
+          <Tweet
+            {...localTweet}
+            parent={localTweet.parentPost && true}
+            child={child && true}
+          />
+        ))}
+
+      {showComments &&
+        localTweet &&
+        localTweet.comments.map((comment, index) => {
+          return <Tweet key={index} {...comment} />
+        })}
     </>
   )
 }

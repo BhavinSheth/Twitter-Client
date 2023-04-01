@@ -19,7 +19,6 @@ import { useAppContext } from '../../context/appContext'
 function Sidebar() {
   const [id, setId] = useState(2)
   const { screenWidth } = useAppContext()
-
   return (
     <div className="sidebar">
       <Twitter className="twitter-icon" />
