@@ -200,7 +200,7 @@ h4 {
 }
 p {
   margin-bottom: 1.25rem;
-  color: var(--clr-grey-5);
+  color: var(--grey1);
 }
 @media screen and (min-width: 800px) {
   h1,
@@ -328,4 +328,15 @@ div#root {
   color: var(--twitter-color);
   font-size: 2rem;
   text-transform: capitalize;
+}
+
+/* --------------TEXT EDITOR ---------------- */
+
+.ql-container {
+  border: none !important;
+  font-size: medium !important;
+}
+
+.ql-editor {
+  padding: 0 !important;
 }

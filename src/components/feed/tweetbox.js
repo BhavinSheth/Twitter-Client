@@ -10,21 +10,20 @@ import {
   STOP_SPINNER,
   TWEET_MAX_LENGTH,
 } from '../../context/globalConstants'
-import ColoredText from '../ColoredText'
+import TextEditor from '../TextEditor'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { useRef } from 'react'
 const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png`
 
 function TweetBox() {
   const [text, setText] = useState('')
   const { user, configs, dispatch } = useAppContext()
-  const { tweetRef } = useRef(null)
 
   const submitTweet = async (e) => {
     dispatch({ type: START_SPINNER })
 
     e.preventDefault()
+
     try {
       const res = await axios.post(
         `${SERVER_BASE_URL}/${user.userName}/tweets`,
@@ -65,23 +64,30 @@ function TweetBox() {
     },
   }
 
-  const handleInput = (e) => {
-    setText(e.target.value)
-  }
+  React.useEffect(() => {
+    if (text.trim().length === 0) {
+      setText('')
+    }
+    console.log(text, text.length)
+
+    return () => {}
+  }, [text])
 
   return (
     <div className="tweetBox">
       <form>
         <div className="tweetBox-input">
           <Avatar src={`${user && user.profileImg}`}></Avatar>
-          <textarea
+          {/* <textarea
             contentEditable="true"
             ref={tweetRef}
             type="text"
             placeholder="what's happening?"
             className="text-area"
             onChange={handleInput}
-          ></textarea>
+          ></textarea> */}
+
+          <TextEditor text={text} setText={setText} />
         </div>
         <div className="tools-area">
           {text.length >= 1 && (

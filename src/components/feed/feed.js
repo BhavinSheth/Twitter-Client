@@ -16,8 +16,8 @@ function Feed() {
   return (
     <div className="feed">
       <Loading
-        children={homePageTweets.map((post) => {
-          return <Tweet {...post} />
+        children={homePageTweets.map((post, index) => {
+          return <Tweet key={index} {...post} />
         })}
       />
     </div>

@@ -24,6 +24,6 @@ export const GET_USER_PROFILE_ERROR = 'GET_USER_PROFILE_ERROR'
 
 export const LOGOUT_USER = 'LOGOUT_USER'
 
-export const TWEET_MAX_LENGTH = 100
+export const TWEET_MAX_LENGTH = 300
 export const SERVER_BASE_URL = 'http://localhost:3000'
 export const CLIENT_BASE_URL = 'http://localhost:5000'
