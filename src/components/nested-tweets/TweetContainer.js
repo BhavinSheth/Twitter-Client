@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 import { SERVER_BASE_URL } from '../../context/globalConstants'
 import Tweet from './Tweet'
 import MainTweet from './MainTweet'
+import { useAppContext } from '../../context/appContext'
 
 function TweetContainer({ main, showComments, tweetId, userName, child }) {
   const [localTweet, setLocalTweet] = useState()
-
   const getSingleTweet = async () => {
     try {
       const res = await axios.get(
@@ -20,7 +20,6 @@ function TweetContainer({ main, showComments, tweetId, userName, child }) {
       console.log(error)
     }
   }
-
   useEffect(() => {
     getSingleTweet()
   }, [tweetId])
@@ -41,19 +40,23 @@ function TweetContainer({ main, showComments, tweetId, userName, child }) {
             {...localTweet}
             parent={localTweet.parentPost && true}
             child={child && true}
+            getSingleTweet={getSingleTweet}
           />
         ) : (
           <Tweet
             {...localTweet}
             parent={localTweet.parentPost && true}
             child={child && true}
+            getSingleTweet={getSingleTweet}
           />
         ))}
 
       {showComments &&
         localTweet &&
         localTweet.comments.map((comment, index) => {
-          return <Tweet key={index} {...comment} />
+          return (
+            <Tweet key={index} {...comment} getSingleTweet={getSingleTweet} />
+          )
         })}
     </>
   )

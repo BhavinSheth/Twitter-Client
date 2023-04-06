@@ -11,7 +11,7 @@ import Home from './pages/home/home'
 import Protected from './components/Protected'
 import { useAppContext } from './context/appContext'
 import Profile from './pages/profile/profile'
-import ProfileOutlet from './pages/ProfileOutlet'
+import ProfileOutlet from './pages/profile/ProfileOutlet'
 import SingleTweetPage from './pages/single-tweet/singlePageTweet'
 
 function App() {

@@ -17,6 +17,9 @@ import {
   GET_USER_PROFILE_ERROR,
   START_SPINNER,
   STOP_SPINNER,
+  GET_PROFILE_TWEETS_START,
+  GET_PROFILE_TWEETS_SUCCESS,
+  GET_PROFILE_TWEETS_ERROR,
 } from './globalConstants'
 
 import reducer from './reducer'
@@ -73,6 +76,11 @@ const initialState = {
     'kiran',
     'sheth',
   ],
+  profile: undefined,
+  profileTweets: [],
+  profileComments: [],
+  profileLikes: [],
+  profileFollowers: [],
   homePageTweets: [],
   count: 0,
 }
@@ -158,6 +166,22 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const getProfileTweets = async () => {
+    dispatch({ type: GET_PROFILE_TWEETS_START })
+    try {
+      const res = await axios.get(
+        `${SERVER_BASE_URL}/${state.profile.userName}/tweets`
+      )
+      const { tweets } = res.data
+      console.log(tweets, 'get profile tweet')
+      dispatch({ type: GET_PROFILE_TWEETS_SUCCESS, payload: { tweets } })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+      dispatch({ type: GET_PROFILE_TWEETS_ERROR })
+    }
+  }
+
   useEffect(() => {
     // setupApp()
   }, [])
@@ -183,6 +207,7 @@ const AppProvider = ({ children }) => {
         setTokenAndUserToLocalStorage,
         getHomePageTweets,
         getUserProfile,
+        getProfileTweets,
         dispatch,
         // increaseCount,
       }}

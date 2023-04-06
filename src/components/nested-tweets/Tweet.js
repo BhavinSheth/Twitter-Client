@@ -8,6 +8,7 @@ import './tweet.css'
 import { Link } from 'react-router-dom'
 import { CLIENT_BASE_URL } from '../../context/globalConstants'
 import Utilities from './Utilities'
+import { useAppContext } from '../../context/appContext'
 
 function Tweet({
   _id,
@@ -18,15 +19,22 @@ function Tweet({
   text,
   parent,
   child,
-  getHomePageTweets,
+  isRetweeted,
+  getSingleTweet,
+  getProfileTweets,
 }) {
   const { name, userName, profileImg, isVerified } = createdBy
-
+  const { profile } = useAppContext()
   return (
     <Link
       to={`${CLIENT_BASE_URL}/${userName}/status/${_id}`}
       className={`post ${child && 'border-bottom-0'}`}
     >
+      {isRetweeted && (
+        <div className="is-retweeted">
+          <p>retweeted by {profile.userName}</p>
+        </div>
+      )}
       <div className="post-nested">
         {parent && <div className="vertical-line parent" />}
         <Link to={`${CLIENT_BASE_URL}/${userName}`}>
@@ -55,6 +63,8 @@ function Tweet({
           retweets={retweets}
           userName={userName}
           tweetId={_id}
+          getSingleTweet={getSingleTweet}
+          getProfileTweets={getProfileTweets}
         />
       </div>
     </Link>

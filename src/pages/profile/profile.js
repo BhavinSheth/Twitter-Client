@@ -62,7 +62,7 @@ function Profile() {
   }
   useEffect(() => {
     getUserProfile(userName)
-  }, [])
+  }, [userName])
 
   return (
     <>

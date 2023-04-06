@@ -7,7 +7,16 @@ import { useAppContext } from '../../context/appContext'
 
 export const Search = () => {
   const [search, setSearch] = useState('')
+  const [showSearchList, setShowSearchList] = useState(false)
   const { displayItems, allItems } = useAppContext()
+  const closeSearch = () => {
+    setShowSearchList(false)
+  }
+
+  useEffect(() => {
+    if (search.length === 0) setShowSearchList(false)
+    else setShowSearchList(true)
+  }, [search])
 
   return (
     <div className="container-input">
@@ -34,7 +43,7 @@ export const Search = () => {
         ></path>
       </svg>
 
-      {search.length > 0 && search ? (
+      {showSearchList ? (
         <div className="list-wrapper">
           <section className="list">
             {(search.length > 0 === true ? displayItems : allItems).map(
@@ -43,7 +52,7 @@ export const Search = () => {
                   <SingleSearch
                     name={item}
                     key={index}
-                    setShowSearch={setSearch}
+                    closeSearch={closeSearch}
                   />
                 )
               }
@@ -52,7 +61,7 @@ export const Search = () => {
           {displayItems.length > 0 && allItems.length > 0 && (
             <CgClose
               className="close-notification close-list"
-              onClick={() => setSearch(false)}
+              onClick={closeSearch}
             />
           )}
         </div>

@@ -17,6 +17,7 @@ function MainTweet({
   text,
   parent,
   child,
+  getSingleTweet,
 }) {
   const { name, userName, profileImg, isVerified } = createdBy
 
@@ -55,6 +56,7 @@ function MainTweet({
           retweets={retweets}
           userName={userName}
           tweetId={_id}
+          getSingleTweet={getSingleTweet}
         />
       </div>
     </Link>

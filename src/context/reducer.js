@@ -14,6 +14,9 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
   LOGOUT_USER,
+  GET_PROFILE_TWEETS_START,
+  GET_PROFILE_TWEETS_SUCCESS,
+  GET_PROFILE_TWEETS_ERROR,
 } from './globalConstants'
 import { initialState } from './appContext'
 
@@ -130,6 +133,25 @@ const reducer = (state, action) => {
     case LOGOUT_USER:
       return {
         ...initialState,
+        isLoading: false,
+      }
+
+    case GET_PROFILE_TWEETS_START:
+      return {
+        ...state,
+        isLoading: true,
+      }
+
+    case GET_PROFILE_TWEETS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        profileTweets: action.payload.tweets,
+      }
+
+    case GET_PROFILE_TWEETS_ERROR:
+      return {
+        ...state,
         isLoading: false,
       }
 

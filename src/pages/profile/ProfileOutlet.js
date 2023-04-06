@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import Feed from '../components/feed/feed'
+import ProfileTweets from './singleProfileOutlets/profileTweets'
 
 function ProfileOutlet() {
   const { param } = useParams()
   switch (param) {
     case 'tweets':
-      return <Feed />
+      return <ProfileTweets />
 
     case 'replies':
       return <h1>replies</h1>
@@ -21,7 +21,7 @@ function ProfileOutlet() {
       return <h1>following</h1>
 
     default:
-      return <Feed />
+      return <ProfileTweets />
   }
 }
 

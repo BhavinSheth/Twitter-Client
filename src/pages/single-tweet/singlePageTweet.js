@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 
 function SingleTweetPage() {
   const { tweetId, userName } = useParams()
-  useEffect(() => {}, [])
   return (
     <div className="single-tweet-container">
       <TweetContainer main tweetId={tweetId} userName={userName} showComments />

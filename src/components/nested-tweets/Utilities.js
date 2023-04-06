@@ -15,9 +15,16 @@ import {
 } from '../../context/globalConstants'
 import { useEffect } from 'react'
 
-function Utilities({ comments, likes, retweets, tweetId, userName }) {
-  const { configs, dispatch, getHomePageTweets, user, homePageTweets } =
-    useAppContext()
+function Utilities({
+  comments,
+  likes,
+  retweets,
+  tweetId,
+  userName,
+  getSingleTweet,
+  getProfileTweets,
+}) {
+  const { configs, dispatch, getHomePageTweets, user } = useAppContext()
 
   const [isLiked, setIsLiked] = useState(false)
   const [isRetweeted, setIsRetweeted] = useState(false)
@@ -35,6 +42,10 @@ function Utilities({ comments, likes, retweets, tweetId, userName }) {
         configs
       )
       getHomePageTweets()
+      getSingleTweet && getSingleTweet()
+      getProfileTweets && getProfileTweets()
+
+      toast.success(`${isLiked ? ' like undone' : 'liked succesfully'}`)
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
       console.log(error)
@@ -56,6 +67,8 @@ function Utilities({ comments, likes, retweets, tweetId, userName }) {
       )
       toast.success(`${isRetweeted ? 'retweet undone' : 'retweet succesfull'}`)
       getHomePageTweets()
+      getSingleTweet && getSingleTweet()
+      getProfileTweets && getProfileTweets()
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
       console.log(error)
@@ -66,7 +79,7 @@ function Utilities({ comments, likes, retweets, tweetId, userName }) {
   useEffect(() => {
     setIsLiked(likes.includes(user.userId))
     setIsRetweeted(retweets.includes(user.userId))
-  }, [getHomePageTweets])
+  }, [getHomePageTweets, getSingleTweet, getProfileTweets])
 
   return (
     <div className="utilites">
