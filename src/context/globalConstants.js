@@ -22,12 +22,20 @@ export const GET_USER_PROFILE_START = 'GET_USER_PROFILE_START'
 export const GET_USER_PROFILE_SUCCESS = 'GET_USER_PROFILE_SUCCESS'
 export const GET_USER_PROFILE_ERROR = 'GET_USER_PROFILE_ERROR'
 
-export const GET_PROFILE_TWEETS_START = 'GET_PROFILE_TWEETS_START'
-export const GET_PROFILE_TWEETS_SUCCESS = 'GET_PROFILE_TWEETS_SUCCESS'
-export const GET_PROFILE_TWEETS_ERROR = 'GET_PROFILE_TWEETS_ERROR'
+export const GET_PROFILE_OUTLET_START = 'GET_PROFILE_OUTLET_START'
+export const GET_PROFILE_OUTLET_SUCCESS = 'GET_PROFILE_OUTLET_SUCCESS'
+export const GET_PROFILE_OUTLET_ERROR = 'GET_PROFILE_OUTLET_ERROR'
 
 export const LOGOUT_USER = 'LOGOUT_USER'
 
 export const TWEET_MAX_LENGTH = 300
 export const SERVER_BASE_URL = 'http://localhost:3000'
 export const CLIENT_BASE_URL = 'http://localhost:5000'
+
+export const PROFILE_OUTLET = {
+  profileTweets: 'profileTweets',
+  profileLikes: 'profileLikes',
+  profileComments: 'profileComments',
+  profileFollowers: 'profileFollowers',
+  profileFollowing: 'profileFollowing',
+}

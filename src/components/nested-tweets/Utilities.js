@@ -23,6 +23,7 @@ function Utilities({
   userName,
   getSingleTweet,
   getProfileTweets,
+  getProfileLikes,
 }) {
   const { configs, dispatch, getHomePageTweets, user } = useAppContext()
 
@@ -44,6 +45,7 @@ function Utilities({
       getHomePageTweets()
       getSingleTweet && getSingleTweet()
       getProfileTweets && getProfileTweets()
+      getProfileLikes && getProfileLikes()
 
       toast.success(`${isLiked ? ' like undone' : 'liked succesfully'}`)
     } catch (error) {

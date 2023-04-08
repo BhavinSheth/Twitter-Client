@@ -11,14 +11,16 @@ import { Twitter } from '@material-ui/icons'
 // import { Bookmarks } from '@material-ui/icons'
 // import { Profile } from '@material-ui/icons'
 // import { More } from '@material-ui/icons'
-import { Button } from '@material-ui/core'
+import { Avatar, Button } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import sidebarData from './sidebarData'
 import { useAppContext } from '../../context/appContext'
+import { Link } from 'react-router-dom'
+import { CLIENT_BASE_URL } from '../../context/globalConstants'
 
 function Sidebar() {
   const [id, setId] = useState(2)
-  const { screenWidth } = useAppContext()
+  const { screenWidth, user } = useAppContext()
   return (
     <div className="sidebar">
       <Twitter className="twitter-icon" />
@@ -46,6 +48,12 @@ function Sidebar() {
         <Button>
           <Add className="add-btn" />
         </Button>
+      )}
+
+      {user && (
+        <Link to={`${CLIENT_BASE_URL}/${user.userName}`}>
+          <Avatar src={user.profileImg} />
+        </Link>
       )}
     </div>
   )

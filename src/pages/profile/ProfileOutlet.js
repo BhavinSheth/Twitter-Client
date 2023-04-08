@@ -1,6 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import ProfileTweets from './singleProfileOutlets/profileTweets'
+import ProfileLikes from './singleProfileOutlets/profileLikes'
+import ProfileComments from './singleProfileOutlets/profileComments'
+import ProfileFollowers from './singleProfileOutlets/profileFollowers'
+import ProfileFollowing from './singleProfileOutlets/profileFollowing'
 
 function ProfileOutlet() {
   const { param } = useParams()
@@ -9,16 +13,16 @@ function ProfileOutlet() {
       return <ProfileTweets />
 
     case 'replies':
-      return <h1>replies</h1>
+      return <ProfileComments />
 
     case 'likes':
-      return <h1>likes</h1>
+      return <ProfileLikes />
 
     case 'followers':
-      return <h1>followers</h1>
+      return <ProfileFollowers />
 
     case 'following':
-      return <h1>following</h1>
+      return <ProfileFollowing />
 
     default:
       return <ProfileTweets />

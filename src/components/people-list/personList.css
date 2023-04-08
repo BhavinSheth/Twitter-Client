@@ -1,0 +1,61 @@
+.single-person {
+  padding: 1.2rem 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  line-height: normal;
+  transition: var(--transition);
+  color: var(--grey1);
+}
+
+.person-info-container {
+  display: grid;
+  gap: 2px;
+}
+
+.single-person:hover {
+  background-color: var(--clr-black-1);
+}
+
+.person-avatar {
+  width: 3.2rem !important;
+  height: 3.2rem !important;
+}
+.person-names {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.person-username {
+  display: flex;
+  gap: 0.5rem;
+  align-content: center;
+}
+
+.follows-you {
+  color: var(--grey3);
+  background-color: var(--clr-black-3);
+  border-radius: 10px;
+  padding: 0.2rem;
+  font-size: smaller;
+}
+
+.follow-btn {
+  width: auto;
+  font-size: small;
+  max-height: 2rem;
+  border: 1.2px solid var(--twitter-color);
+  /* border: none; */
+}
+
+.follow-btn.following {
+  color: var(--grey4);
+  border: 1.2px solid var(--grey4);
+}
+
+.follow-btn.following:hover {
+  color: red;
+  border: 1.2px solid red;
+  background-color: var(--clr-black-1);
+}

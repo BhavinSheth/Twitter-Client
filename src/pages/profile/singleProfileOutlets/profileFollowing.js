@@ -3,22 +3,22 @@ import { useEffect } from 'react'
 import { useAppContext } from '../../../context/appContext'
 import PersonList from '../../../components/people-list/PersonList'
 
-function ProfileFollowers() {
-  const { getProfileFollowers, profileFollowers } = useAppContext()
+function ProfileFollowing() {
+  const { getProfileFollowing, profileFollowing } = useAppContext()
 
   useEffect(() => {
-    getProfileFollowers()
+    getProfileFollowing()
   }, [])
 
   return (
     <followers>
-      {profileFollowers.length > 0 ? (
-        <PersonList peopleList={profileFollowers} />
+      {profileFollowing.length > 0 ? (
+        <PersonList peopleList={profileFollowing} />
       ) : (
-        <h1>No Follower Found</h1>
+        <h1>No Following Found</h1>
       )}
     </followers>
   )
 }
 
-export default ProfileFollowers
+export default ProfileFollowing

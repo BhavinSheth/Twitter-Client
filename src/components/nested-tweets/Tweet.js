@@ -22,6 +22,7 @@ function Tweet({
   isRetweeted,
   getSingleTweet,
   getProfileTweets,
+  getProfileLikes,
 }) {
   const { name, userName, profileImg, isVerified } = createdBy
   const { profile } = useAppContext()
@@ -65,6 +66,7 @@ function Tweet({
           tweetId={_id}
           getSingleTweet={getSingleTweet}
           getProfileTweets={getProfileTweets}
+          getProfileLikes={getProfileLikes}
         />
       </div>
     </Link>

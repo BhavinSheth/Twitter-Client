@@ -14,9 +14,10 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
   LOGOUT_USER,
-  GET_PROFILE_TWEETS_START,
-  GET_PROFILE_TWEETS_SUCCESS,
-  GET_PROFILE_TWEETS_ERROR,
+  GET_PROFILE_OUTLET_START,
+  GET_PROFILE_OUTLET_SUCCESS,
+  GET_PROFILE_OUTLET_ERROR,
+  PROFILE_OUTLET,
 } from './globalConstants'
 import { initialState } from './appContext'
 
@@ -53,7 +54,11 @@ const reducer = (state, action) => {
         isLoggedIn: true,
         user: action.payload.user,
         accessToken: action.payload.accessToken,
-        bearerToken: `Bearer ${action.payload.accessToken}`,
+        configs: {
+          headers: {
+            Authorization: `Bearer ${action.payload.accessToken}`,
+          },
+        },
       }
     case USER_SETUP_ERROR:
       return {
@@ -110,18 +115,9 @@ const reducer = (state, action) => {
       }
 
     case GET_USER_PROFILE_SUCCESS:
-      const user = state.user
-      const profile = action.payload.data
-      let status
-      console.log(user)
-      if (user.userId === profile._id) status = 'edit'
-      else if (profile.followers.includes(user.userId)) status = 'unfollow'
-      else status = 'follow'
-
       return {
         ...state,
         isLoading: false,
-        status: status,
         profile: action.payload.data,
       }
 
@@ -130,26 +126,63 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
       }
+
     case LOGOUT_USER:
       return {
         ...initialState,
         isLoading: false,
       }
 
-    case GET_PROFILE_TWEETS_START:
+    case GET_PROFILE_OUTLET_START:
       return {
         ...state,
         isLoading: true,
       }
 
-    case GET_PROFILE_TWEETS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        profileTweets: action.payload.tweets,
+    case GET_PROFILE_OUTLET_SUCCESS:
+      const { outletType } = action.payload
+
+      switch (outletType) {
+        case PROFILE_OUTLET.profileTweets:
+          return {
+            ...state,
+            isLoading: false,
+            profileTweets: action.payload.tweets,
+          }
+
+        case PROFILE_OUTLET.profileLikes:
+          return {
+            ...state,
+            isLoading: false,
+            profileLikes: action.payload.liked,
+          }
+
+        case PROFILE_OUTLET.profileComments:
+          return {
+            ...state,
+            isLoading: false,
+            profileComments: action.payload.commented,
+          }
+
+        case PROFILE_OUTLET.profileFollowers:
+          return {
+            ...state,
+            isLoading: false,
+            profileFollowers: action.payload.followers,
+          }
+
+        case PROFILE_OUTLET.profileFollowing:
+          return {
+            ...state,
+            isLoading: false,
+            profileFollowing: action.payload.following,
+          }
+
+        default:
+          return { ...state }
       }
 
-    case GET_PROFILE_TWEETS_ERROR:
+    case GET_PROFILE_OUTLET_ERROR:
       return {
         ...state,
         isLoading: false,

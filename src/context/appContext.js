@@ -17,9 +17,11 @@ import {
   GET_USER_PROFILE_ERROR,
   START_SPINNER,
   STOP_SPINNER,
-  GET_PROFILE_TWEETS_START,
-  GET_PROFILE_TWEETS_SUCCESS,
-  GET_PROFILE_TWEETS_ERROR,
+  GET_PROFILE_OUTLET_START,
+  GET_PROFILE_OUTLET_SUCCESS,
+  GET_PROFILE_OUTLET_ERROR,
+  PROFILE_OUTLET,
+  LOGOUT_USER,
 } from './globalConstants'
 
 import reducer from './reducer'
@@ -38,7 +40,6 @@ const initialState = {
   isLoggedIn: user ? true : false,
   isLoading: false,
   isWaiting: false,
-  status: 'follow',
   category: 'news',
   trends: {},
   searchText: '',
@@ -81,6 +82,7 @@ const initialState = {
   profileComments: [],
   profileLikes: [],
   profileFollowers: [],
+  profileFollowing: [],
   homePageTweets: [],
   count: 0,
 }
@@ -103,7 +105,12 @@ const AppProvider = ({ children }) => {
       })
     } else {
       dispatch({ type: USER_SETUP_ERROR })
-      // toast.error('something went wrong during intial setup')
+      toast.error(
+        'something went wrong during intial setup',
+        'color:yellow',
+        accessToken,
+        user
+      )
     }
     console.log('access token and user set succesfully', state)
   }
@@ -154,8 +161,10 @@ const AppProvider = ({ children }) => {
   const getUserProfile = async (username) => {
     dispatch({ type: GET_USER_PROFILE_START })
     try {
-      const res = await axios.get(`${SERVER_BASE_URL}/${username}`)
-      console.log('in user profile', res.data)
+      const res = await axios.post(`${SERVER_BASE_URL}/${username}`, {
+        visitingUserId: state.user.userId,
+      })
+      console.info('%c in user profile', 'color:blue', res.data)
       const { data } = res
       dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: { data } })
     } catch (error) {
@@ -167,19 +176,111 @@ const AppProvider = ({ children }) => {
   }
 
   const getProfileTweets = async () => {
-    dispatch({ type: GET_PROFILE_TWEETS_START })
+    dispatch({ type: GET_PROFILE_OUTLET_START })
     try {
       const res = await axios.get(
         `${SERVER_BASE_URL}/${state.profile.userName}/tweets`
       )
       const { tweets } = res.data
       console.log(tweets, 'get profile tweet')
-      dispatch({ type: GET_PROFILE_TWEETS_SUCCESS, payload: { tweets } })
+      dispatch({
+        type: GET_PROFILE_OUTLET_SUCCESS,
+        payload: { tweets, outletType: PROFILE_OUTLET.profileTweets },
+      })
     } catch (error) {
       console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
-      dispatch({ type: GET_PROFILE_TWEETS_ERROR })
+      dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
+  }
+
+  const getProfileLikes = async () => {
+    dispatch({ type: GET_PROFILE_OUTLET_START })
+    try {
+      const res = await axios.get(
+        `${SERVER_BASE_URL}/${state.profile.userName}/likes`
+      )
+      const { liked } = res.data
+      console.log(liked, 'get profile likes')
+      dispatch({
+        type: GET_PROFILE_OUTLET_SUCCESS,
+        payload: { liked, outletType: PROFILE_OUTLET.profileLikes },
+      })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+      dispatch({ type: GET_PROFILE_OUTLET_ERROR })
+    }
+  }
+
+  const getProfileComments = async () => {
+    dispatch({ type: GET_PROFILE_OUTLET_START })
+    try {
+      const res = await axios.get(
+        `${SERVER_BASE_URL}/${state.profile.userName}/comments`
+      )
+      const { commented } = res.data
+      console.log(res.data, 'get profile comments')
+      dispatch({
+        type: GET_PROFILE_OUTLET_SUCCESS,
+        payload: { commented, outletType: PROFILE_OUTLET.profileComments },
+      })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+      dispatch({ type: GET_PROFILE_OUTLET_ERROR })
+    }
+  }
+
+  const getProfileFollowers = async () => {
+    dispatch({ type: GET_PROFILE_OUTLET_START })
+    try {
+      const res = await axios.post(
+        `${SERVER_BASE_URL}/${state.profile.userName}/followers`,
+        { visitingUserId: state.user.userId }
+      )
+      const { followers } = res.data
+      console.log(res.data, 'get profile followers')
+      dispatch({
+        type: GET_PROFILE_OUTLET_SUCCESS,
+        payload: { followers, outletType: PROFILE_OUTLET.profileFollowers },
+      })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+      dispatch({ type: GET_PROFILE_OUTLET_ERROR })
+    }
+  }
+
+  const getProfileFollowing = async () => {
+    dispatch({ type: GET_PROFILE_OUTLET_START })
+    try {
+      const res = await axios.post(
+        `${SERVER_BASE_URL}/${state.profile.userName}/following`,
+        { visitingUserId: state.user.userId }
+      )
+      const { following } = res.data
+      console.log(res.data, 'get profile following')
+      dispatch({
+        type: GET_PROFILE_OUTLET_SUCCESS,
+        payload: { following, outletType: PROFILE_OUTLET.profileFollowing },
+      })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response ? error.response.data.message : error.message)
+      dispatch({ type: GET_PROFILE_OUTLET_ERROR })
+    }
+  }
+
+  const logout = () => {
+    remove_user_and_token_from_localstorage()
+    dispatch({ type: LOGOUT_USER })
+    toast.success('logout succesfull')
+  }
+
+  const remove_user_and_token_from_localstorage = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('accessToken')
   }
 
   useEffect(() => {
@@ -208,6 +309,11 @@ const AppProvider = ({ children }) => {
         getHomePageTweets,
         getUserProfile,
         getProfileTweets,
+        getProfileLikes,
+        getProfileComments,
+        getProfileFollowers,
+        getProfileFollowing,
+        logout,
         dispatch,
         // increaseCount,
       }}

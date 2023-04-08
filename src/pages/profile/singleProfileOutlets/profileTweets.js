@@ -2,11 +2,9 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useAppContext } from '../../../context/appContext'
 import Tweet from '../../../components/nested-tweets/Tweet'
-import { useParams } from 'react-router-dom'
 
 function ProfileTweets() {
   const { getProfileTweets, profileTweets } = useAppContext()
-  const params = useParams()
 
   useEffect(() => {
     getProfileTweets()

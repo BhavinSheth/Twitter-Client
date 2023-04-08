@@ -199,7 +199,6 @@ h4 {
   font-size: 0.875rem;
 }
 p {
-  margin-bottom: 1.25rem;
   color: var(--grey1);
 }
 @media screen and (min-width: 800px) {
@@ -225,14 +224,14 @@ p {
   }
 }
 .btn {
-  color: black !important;
+  color: black;
   background-color: transparent;
   text-transform: uppercase;
   padding: 0.3rem 1rem;
   border-radius: 10px;
   text-transform: capitalize;
   width: 40%;
-  color: var(--twitter-color) !important;
+  color: var(--twitter-color);
   letter-spacing: var(--spacing);
   border: solid 2px var(--twitter-color);
   font-weight: 580;
@@ -244,7 +243,7 @@ p {
 .btn:hover {
   background-color: var(--clr-gray-3);
   background-color: var(--twitter-color);
-  color: black !important;
+  color: black;
 }
 /*
 =============== 
@@ -276,6 +275,10 @@ main {
 div#root {
   background-color: black;
   height: 100vh;
+}
+
+.svg {
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 800px) {

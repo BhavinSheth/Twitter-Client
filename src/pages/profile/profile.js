@@ -18,8 +18,7 @@ import { toast } from 'react-toastify'
 
 function Profile() {
   const { userName } = useParams()
-  const { profile, getUserProfile, user, dispatch, configs, status } =
-    useAppContext()
+  const { profile, getUserProfile, user, dispatch, configs } = useAppContext()
 
   const followUser = async (username) => {
     dispatch({ type: START_SPINNER })
@@ -82,13 +81,16 @@ function Profile() {
               </div>
               <Avatar
                 className="dashboard-profile-img"
-                src="https://pbs.twimg.com/profile_images/1629822390653054976/jX5bIqK4.jpg"
+                src={
+                  profile.profileImg ||
+                  `https://pbs.twimg.com/profile_images/1629822390653054976/jX5bIqK4.jpg`
+                }
               />
             </div>
             <div className="edit-profile">
-              {status === 'edit' ? (
+              {profile.status === 'edit' ? (
                 <button className="btn edit-btn">edit profile</button>
-              ) : status === 'unfollow' ? (
+              ) : profile.status === 'unfollow' ? (
                 <button className="btn edit-btn" onClick={unFollowUser}>
                   unfollow
                 </button>
