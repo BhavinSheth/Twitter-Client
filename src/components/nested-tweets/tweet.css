@@ -44,3 +44,31 @@
 .icon.active-blue {
   color: var(--twitter-color);
 }
+
+.post-container {
+  transition: var(--transition);
+}
+.post-container:hover {
+  background-color: var(--clr-black-1);
+}
+
+.is-retweeted {
+  text-transform: capitalize;
+  display: flex;
+  font-size: small;
+  place-content: center;
+  place-items: center;
+  color: var(--clr-grey-5);
+  gap: 0.6rem;
+}
+
+.is-retweeted svg {
+  font-size: 1rem;
+}
+.is-retweeted p {
+  color: var(--clr-grey-5);
+}
+
+.verified.small {
+  font-size: medium;
+}

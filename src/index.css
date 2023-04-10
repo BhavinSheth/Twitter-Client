@@ -147,6 +147,10 @@ Variables
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .Toastify__toast {
   border-radius: 15px !important;
 }
@@ -283,16 +287,29 @@ div#root {
 
 @media screen and (max-width: 800px) {
   .app {
-    grid-template-columns: auto 1fr;
+    position: relative;
+    grid-template-columns: 1fr auto;
+    grid-auto-flow: dense;
   }
   .sidebar {
+    font-size: small;
+    z-index: 1;
+    position: absolute;
+    /* background-color: darkslategrey !important; */
+    order: 1;
     display: grid;
-    padding: 2rem 1rem !important;
-
-    grid-template-columns: 1fr;
-    justify-items: center;
-    min-width: 0px !important;
+    grid-auto-flow: column;
+    bottom: 0;
+    width: 100%;
+    place-items: center;
+    padding: 0 !important;
+    padding-bottom: 0.3rem !important;
+    border-top: var(--border);
   }
+
+  /* .MuiSvgIcon-root {
+    font-size: 1.3rem !important;
+  } */
   .sidebaroptions:hover {
     background-color: none !important;
   }
@@ -307,6 +324,9 @@ div#root {
   }
   .widgets {
     display: none !important;
+  }
+  .home-avatar {
+    margin: 0 !important;
   }
 }
 
@@ -342,4 +362,8 @@ div#root {
 
 .ql-editor {
   padding: 0 !important;
+}
+
+.hide {
+  display: none !important;
 }

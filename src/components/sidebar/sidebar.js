@@ -23,7 +23,7 @@ function Sidebar() {
   const { screenWidth, user } = useAppContext()
   return (
     <div className="sidebar">
-      <Twitter className="twitter-icon" />
+      <Twitter className={`twitter-icon ${screenWidth < 800 && 'hide'}`} />
       {/* {options.map((option) => {
         return <SidebarOptions id={()=>getId()} Icons={option} text={option} />
       })} */}
@@ -40,20 +40,23 @@ function Sidebar() {
         )
       })}
 
-      {screenWidth > 800 ? (
-        <Button variant="outlined" className="tweet-btn" fullWidth>
-          tweet
-        </Button>
-      ) : (
-        <Button>
-          <Add className="add-btn" />
-        </Button>
-      )}
+      {
+        screenWidth > 800 ? (
+          <Button variant="outlined" className="tweet-btn" fullWidth>
+            tweet
+          </Button>
+        ) : null
+        // <Button>
+        //   <Add className="add-btn" />
+        // </Button>
+      }
 
       {user && (
-        <Link to={`${CLIENT_BASE_URL}/${user.userName}`}>
-          <Avatar src={user.profileImg} />
-        </Link>
+        <div className="home-avatar">
+          <Link to={`${CLIENT_BASE_URL}/${user.userName}`}>
+            <Avatar src={user.profileImg} />
+          </Link>
+        </div>
       )}
     </div>
   )

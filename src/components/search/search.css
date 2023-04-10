@@ -99,10 +99,10 @@
   position: absolute;
   top: 120%;
   left: calc(50%);
-  transform: translateX(-45%);
+  transform: translateX(-47%);
   z-index: 1;
 
-  width: 16.5rem;
+  width: 22rem;
 }
 
 .list {
@@ -110,7 +110,7 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: var(--dark-shadow);
-  max-width: 15rem;
+  width: 95%;
   max-height: 15rem;
   background-color: var(--clr-black-2);
   overflow-y: scroll;

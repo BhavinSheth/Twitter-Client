@@ -13,11 +13,10 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
 
-function SinglePerson({
+function UserSearch({
   profileImg,
   name,
   userName,
-  bio,
   isVerified,
   isFollowingYou,
   doYouFollow,
@@ -42,7 +41,9 @@ function SinglePerson({
         configs
       )
       console.log(res.data)
-      toast.success(`you ${doYouFollow ? 'unfollowed ' : 'followed '} ${name}`)
+      toast.success(
+        `you ${doYouFollow ? 'you unfollowed ' : 'you followed '} ${name}`
+      )
       getProfileFollowers && getProfileFollowers()
       getProfileFollowing && getProfileFollowing()
       getUserProfile && getUserProfile()
@@ -56,36 +57,37 @@ function SinglePerson({
 
   return (
     <Link to={`${CLIENT_BASE_URL}/${userName}`}>
-      <div className="single-person">
-        <div className="avatar-container">
-          <Avatar className="person-avatar" src={profileImg} />
+      <div className="single-person search">
+        <div className="avatar-container search">
+          <Avatar className="person-avatar search" src={profileImg} />
         </div>
-        <div className="person-info-container">
-          <div className="person-names">
-            <div className="names">
-              <div className="name">
+        <div className="person-info-container search">
+          <div className="person-names search">
+            <div className="names search">
+              <div className="name search">
                 <span>{name}</span>
                 {isVerified && <VerifiedUserIcon className="verified small" />}
               </div>
-              <div className="person-username">
-                <div className="username">{userName}</div>
-                {isFollowingYou && <p className="follows-you">follows you</p>}
+              <div className="person-username search">
+                <div className="username search">{userName}</div>
+                {isFollowingYou && (
+                  <p className="follows-you search">follows you</p>
+                )}
               </div>
             </div>
             <div
               onClick={follow_or_unfollow_user}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className={`btn follow-btn ${doYouFollow && 'following'}`}
+              className={`btn follow-btn search ${doYouFollow && 'following'}`}
             >
               {doYouFollow ? (isHovered ? 'unfollow' : 'following') : 'follow'}
             </div>
           </div>
-          <div className="bio">{bio}</div>
         </div>
       </div>
     </Link>
   )
 }
 
-export default SinglePerson
+export default UserSearch

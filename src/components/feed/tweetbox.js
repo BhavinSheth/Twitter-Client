@@ -74,18 +74,10 @@ function TweetBox() {
   }, [text])
 
   return (
-    <div className="tweetBox">
+    <div className="tweetBox" id="tweet">
       <form>
         <div className="tweetBox-input">
           <Avatar src={`${user && user.profileImg}`}></Avatar>
-          {/* <textarea
-            contentEditable="true"
-            ref={tweetRef}
-            type="text"
-            placeholder="what's happening?"
-            className="text-area"
-            onChange={handleInput}
-          ></textarea> */}
 
           <TextEditor text={text} setText={setText} />
         </div>

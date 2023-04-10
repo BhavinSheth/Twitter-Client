@@ -230,7 +230,6 @@
 
 .login-form a {
   text-transform: capitalize;
-  margin-top: -1rem;
   color: var(--twitter-color);
 }
 

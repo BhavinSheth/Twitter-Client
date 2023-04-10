@@ -90,6 +90,10 @@ const initialState = {
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
+  const [globalSearch, setGlobalSearch] = useState('')
+  const [searchType, setSearchType] = useState('all')
+  const [allResults, setAllResults] = useState()
+  const [filteredResults, setFilteredResults] = useState()
   // const [navState, setNavState] = useState('home')
   const [state, dispatch] = useReducer(reducer, initialState)
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
@@ -161,9 +165,12 @@ const AppProvider = ({ children }) => {
   const getUserProfile = async (username) => {
     dispatch({ type: GET_USER_PROFILE_START })
     try {
-      const res = await axios.post(`${SERVER_BASE_URL}/${username}`, {
-        visitingUserId: state.user.userId,
-      })
+      const res = await axios.post(
+        `${SERVER_BASE_URL}/${username || state.profile.userName}`,
+        {
+          visitingUserId: state.user.userId,
+        }
+      )
       console.info('%c in user profile', 'color:blue', res.data)
       const { data } = res
       dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: { data } })
@@ -283,7 +290,94 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('accessToken')
   }
 
+  const handleGlobalSearch = (e) => {
+    dispatch({ type: START_SPINNER })
+    setGlobalSearch(e.target.value)
+    get_filtered_search_results(e.target.value)
+    dispatch({ type: STOP_SPINNER })
+  }
+
+  const get_all_search_results = async () => {
+    try {
+      const res = await axios.post(`${SERVER_BASE_URL}/search`, {
+        visitingUserId: state.user.userId,
+      })
+      const { data } = res
+      console.log(data)
+      setAllResults(data)
+      setFilteredResults(data)
+    } catch (error) {
+      toast.error(error.response ? error.response.data.message : error.message)
+      console.log(error)
+    }
+  }
+
+  const get_filtered_users = (searchValue) => {
+    const keysToBeIncluded = ['name', 'userName', 'email', 'bio']
+    const newFilteredUsers = allResults.users.filter((user) => {
+      const isFound = Object.entries(user)
+        .filter(([key, value]) => keysToBeIncluded.includes(key))
+        .map(([key, value]) => value)
+        .join(' ')
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+
+      if (isFound) return user
+    })
+    console.log(newFilteredUsers)
+    setFilteredResults((prev) => {
+      return { ...prev, users: newFilteredUsers }
+    })
+  }
+
+  const get_filtered_tweets = () => {
+    const keysToBeIncluded = ['text']
+    const newFilteredTweets = allResults.tweets.filter((tweet) => {
+      const isFound = Object.entries(tweet)
+        .filter(([key, value]) => keysToBeIncluded.includes(key))
+        .map(([key, value]) => value)
+        .join(' ')
+        .toLowerCase()
+        .includes(globalSearch.toLowerCase())
+
+      if (isFound) return tweet
+    })
+    console.log('%cFILTERED TWEETS : ', 'color : yellow', newFilteredTweets)
+    setFilteredResults((prev) => {
+      return { ...prev, tweets: newFilteredTweets }
+    })
+  }
+
+  const get_filtered_hashtags = () => {
+    const keysToBeIncluded = ['hashtag', 'count']
+    const newFilteredHashtags = allResults.hashtags.filter((hashtag) => {
+      const isFound = Object.entries(hashtag)
+        .filter(([key, value]) => keysToBeIncluded.includes(key))
+        .map(([key, value]) => value)
+        .join(' ')
+        .toLowerCase()
+        .includes(globalSearch.toLowerCase())
+
+      if (isFound) return hashtag
+    })
+    console.log('%cFILTERED HASHTAGS : ', 'color : blue', newFilteredHashtags)
+    setFilteredResults((prev) => {
+      return { ...prev, hashtags: newFilteredHashtags }
+    })
+  }
+
+  const get_filtered_search_results = (value) => {
+    if (value.startsWith('@')) setSearchType('user')
+    if (value.startsWith('#')) setSearchType('hashtag')
+    else setSearchType('all')
+    get_filtered_users(value)
+    get_filtered_tweets()
+    get_filtered_hashtags()
+  }
+
   useEffect(() => {
+    console.log('%cAPI Called ', 'color:red')
+    get_all_search_results()
     // setupApp()
   }, [])
 
@@ -301,8 +395,6 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
-        // navState,
-        // setNavState,
         screenWidth,
         getTrends,
         setTokenAndUserToLocalStorage,
@@ -313,6 +405,12 @@ const AppProvider = ({ children }) => {
         getProfileComments,
         getProfileFollowers,
         getProfileFollowing,
+        globalSearch,
+        searchType,
+        handleGlobalSearch,
+        get_filtered_search_results,
+        allResults,
+        filteredResults,
         logout,
         dispatch,
         // increaseCount,

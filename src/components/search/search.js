@@ -1,12 +1,13 @@
 import './search.css'
 import React, { useEffect, useState } from 'react'
-import { BiSearch } from 'react-icons/bi'
 import SingleSearch from './singleSearch'
 import { CgClose } from 'react-icons/cg'
 import { useAppContext } from '../../context/appContext'
+import UserSearch from './userSearch'
 
 export const Search = () => {
-  const [search, setSearch] = useState('')
+  const { globalSearch, handleGlobalSearch, filteredResults, allResults } =
+    useAppContext()
   const [showSearchList, setShowSearchList] = useState(false)
   const { displayItems, allItems } = useAppContext()
   const closeSearch = () => {
@@ -14,9 +15,9 @@ export const Search = () => {
   }
 
   useEffect(() => {
-    if (search.length === 0) setShowSearchList(false)
+    if (globalSearch.length === 0) setShowSearchList(false)
     else setShowSearchList(true)
-  }, [search])
+  }, [globalSearch])
 
   return (
     <div className="container-input">
@@ -25,9 +26,9 @@ export const Search = () => {
         placeholder="Search"
         name="text"
         className="input"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        autoCorrect="false"
+        value={globalSearch}
+        onChange={handleGlobalSearch}
+        autoComplete="off"
       />
       <svg
         fill="var(--twitter-color)"
@@ -46,7 +47,7 @@ export const Search = () => {
       {showSearchList ? (
         <div className="list-wrapper">
           <section className="list">
-            {(search.length > 0 === true ? displayItems : allItems).map(
+            {/* {(globalSearch.length > 0 === true ? displayItems : allItems).map(
               (item, index) => {
                 return (
                   <SingleSearch
@@ -56,7 +57,12 @@ export const Search = () => {
                   />
                 )
               }
-            )}
+            )} */}
+
+            {filteredResults.users &&
+              filteredResults.users.map((user) => {
+                return <UserSearch {...user} />
+              })}
           </section>
           {displayItems.length > 0 && allItems.length > 0 && (
             <CgClose

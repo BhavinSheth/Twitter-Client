@@ -5,6 +5,7 @@
 }
 
 .sidebar {
+  /* display: grid; */
   background-color: black;
   padding: 0.4rem 1rem;
   padding-left: 5rem;
@@ -47,4 +48,10 @@
 .add-btn:hover {
   transition: all 0.3s ease-out;
   background-color: var(--twitter-color-2);
+}
+
+.home-avatar {
+  margin-top: 2rem;
+  display: grid;
+  place-items: center;
 }
