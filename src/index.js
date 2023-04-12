@@ -32,6 +32,7 @@ ReactDOM.render(
       pauseOnHover
       theme="light"
       style={{ textTransform: 'capitalize' }}
+      limit={4}
     />
   </React.StrictMode>,
   document.getElementById('root')

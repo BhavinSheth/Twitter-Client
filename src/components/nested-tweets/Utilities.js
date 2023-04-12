@@ -25,7 +25,8 @@ function Utilities({
   getProfileTweets,
   getProfileLikes,
 }) {
-  const { configs, dispatch, getHomePageTweets, user } = useAppContext()
+  const { configs, dispatch, getHomePageTweets, user, get_all_search_results } =
+    useAppContext()
 
   const [isLiked, setIsLiked] = useState(false)
   const [isRetweeted, setIsRetweeted] = useState(false)
@@ -46,7 +47,7 @@ function Utilities({
       getSingleTweet && getSingleTweet()
       getProfileTweets && getProfileTweets()
       getProfileLikes && getProfileLikes()
-
+      get_all_search_results && get_all_search_results()
       toast.success(`${isLiked ? ' like undone' : 'liked succesfully'}`)
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
@@ -71,6 +72,8 @@ function Utilities({
       getHomePageTweets()
       getSingleTweet && getSingleTweet()
       getProfileTweets && getProfileTweets()
+      getProfileLikes && getProfileLikes()
+      get_all_search_results && get_all_search_results()
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
       console.log(error)
@@ -81,7 +84,12 @@ function Utilities({
   useEffect(() => {
     setIsLiked(likes.includes(user.userId))
     setIsRetweeted(retweets.includes(user.userId))
-  }, [getHomePageTweets, getSingleTweet, getProfileTweets])
+  }, [
+    getHomePageTweets,
+    getSingleTweet,
+    getProfileTweets,
+    get_all_search_results,
+  ])
 
   return (
     <div className="utilites">

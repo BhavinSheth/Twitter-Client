@@ -130,6 +130,8 @@ const reducer = (state, action) => {
     case LOGOUT_USER:
       return {
         ...initialState,
+        isLoggedIn: false,
+        user: undefined,
         isLoading: false,
       }
 

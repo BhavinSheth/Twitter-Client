@@ -81,6 +81,15 @@
   font-size: x-large;
 }
 
+.post-text-highlight {
+  color: var(--twitter-color);
+}
+
+.post-text-highlight:hover {
+  color: var(--twitter-color);
+  text-decoration: underline;
+}
+
 .img {
   width: 100%;
   border-radius: 20px;

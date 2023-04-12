@@ -1,5 +1,5 @@
 .post.main {
-  border-bottom: var(--border-dark);
+  border-bottom: var(--border);
 }
 
 .post-headers {
@@ -71,4 +71,9 @@
 
 .verified.small {
   font-size: medium;
+}
+
+.tweet-list {
+  width: 100%;
+  height: 100%;
 }

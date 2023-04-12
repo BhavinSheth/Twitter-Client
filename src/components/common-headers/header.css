@@ -1,0 +1,39 @@
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.65);
+  /* box-shadow: var(--light-shadow-white); */
+  padding: 0.5rem;
+  /* padding-bottom: 0; */
+  opacity: 0.97;
+  backdrop-filter: blur(12px);
+}
+
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr;
+  place-items: center;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+
+.back-btn {
+  display: grid;
+  font-size: 1.3rem;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  color: var(--twitter-color);
+  cursor: pointer;
+}
+
+.header-info {
+  transform: translateX(-20%);
+}
+
+.mg-negative {
+  margin-bottom: -1.5rem;
+}

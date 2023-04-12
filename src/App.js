@@ -13,6 +13,8 @@ import { useAppContext } from './context/appContext'
 import Profile from './pages/profile/profile'
 import ProfileOutlet from './pages/profile/ProfileOutlet'
 import SingleTweetPage from './pages/single-tweet/singlePageTweet'
+import SearchPage from './pages/search-page/searchPage'
+import SearchTabs from './pages/search-page/searchTabs'
 
 function App() {
   const { isLoggedIn } = useAppContext()
@@ -33,8 +35,9 @@ function App() {
           <Route path={`tabs/:category`} Component={Tabs}></Route>
         </Route>
 
-        <Route path="search" element={<h1>Search</h1>}>
-          <Route path={`tabs/:category`} Component={Tabs}></Route>
+        <Route path="search" Component={SearchPage}>
+          <Route index Component={SearchTabs}></Route>
+          <Route path={`searchType/:type`} Component={SearchTabs}></Route>
         </Route>
 
         <Route path="notifications" element={<h1>Notification</h1>}>

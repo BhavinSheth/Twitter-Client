@@ -15,6 +15,7 @@ import {
 } from '../../context/globalConstants'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Header from '../../components/common-headers/Header'
 
 function Profile() {
   const { userName } = useParams()
@@ -67,6 +68,7 @@ function Profile() {
     <>
       {profile && (
         <div className="profile-container">
+          <Header headerName={'Profile'} margin />
           <div className="profile-dashboard">
             <div className="main-containers">
               <div className="dashboard-img-containers">

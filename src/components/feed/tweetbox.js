@@ -5,6 +5,7 @@ import { useAppContext } from '../../context/appContext'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import {
+  CLIENT_BASE_URL,
   SERVER_BASE_URL,
   START_SPINNER,
   STOP_SPINNER,
@@ -13,24 +14,41 @@ import {
 import TextEditor from '../TextEditor'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png`
 
-function TweetBox() {
+function TweetBox({ comment, username, tweetId }) {
   const [text, setText] = useState('')
   const { user, configs, dispatch } = useAppContext()
 
+  const createTweet = async () => {
+    const res = await axios.post(
+      `${SERVER_BASE_URL}/${user.userName}/tweets`,
+      { text },
+      configs
+    )
+    toast.success('Tweet created succesfully')
+    return res
+  }
+
+  const commentTweet = async () => {
+    const res = await axios.post(
+      `${SERVER_BASE_URL}/${username}/status/${tweetId}/comment`,
+      { text },
+      configs
+    )
+    toast.success(`you commented on ${username}'s tweet`)
+    return res
+  }
+
   const submitTweet = async (e) => {
     dispatch({ type: START_SPINNER })
-
     e.preventDefault()
-
     try {
-      const res = await axios.post(
-        `${SERVER_BASE_URL}/${user.userName}/tweets`,
-        { text },
-        configs
-      )
-      toast.success('Tweet created succesfully')
+      // Tweet
+      const res = comment ? await commentTweet() : await createTweet()
+      console.log(res)
+      // Comment
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
       console.log(error)
@@ -75,6 +93,14 @@ function TweetBox() {
 
   return (
     <div className="tweetBox" id="tweet">
+      {comment && (
+        <div className="tweetbox-header">
+          Replying to
+          <Link to={`${CLIENT_BASE_URL}/${username}`} className="username">
+            @{username}
+          </Link>
+        </div>
+      )}
       <form>
         <div className="tweetBox-input">
           <Avatar src={`${user && user.profileImg}`}></Avatar>
@@ -95,7 +121,7 @@ function TweetBox() {
             />
           )}
           <Button onClick={submitTweet} className="tweetbox-tweet">
-            TWEET
+            {comment ? 'reply' : 'tweet'}
           </Button>
         </div>
       </form>

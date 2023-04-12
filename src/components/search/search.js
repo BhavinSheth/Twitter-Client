@@ -4,6 +4,7 @@ import SingleSearch from './singleSearch'
 import { CgClose } from 'react-icons/cg'
 import { useAppContext } from '../../context/appContext'
 import UserSearch from './userSearch'
+import { toast } from 'react-toastify'
 
 export const Search = () => {
   const { globalSearch, handleGlobalSearch, filteredResults, allResults } =
@@ -15,8 +16,15 @@ export const Search = () => {
   }
 
   useEffect(() => {
-    if (globalSearch.length === 0) setShowSearchList(false)
-    else setShowSearchList(true)
+    if (
+      globalSearch.length === 0 ||
+      (filteredResults.users.length === 0 &&
+        filteredResults.tweets.length === 0)
+    ) {
+      setShowSearchList(false)
+      globalSearch && toast.warning(`no search found for ${globalSearch}`)
+      toast.clearWaitingQueue()
+    } else setShowSearchList(true)
   }, [globalSearch])
 
   return (
@@ -61,7 +69,23 @@ export const Search = () => {
 
             {filteredResults.users &&
               filteredResults.users.map((user) => {
-                return <UserSearch {...user} />
+                return (
+                  <UserSearch
+                    key={user._id}
+                    {...user}
+                    closeSearch={closeSearch}
+                  />
+                )
+              })}
+            {filteredResults.hashtags &&
+              filteredResults.hashtags.map((hashtag) => {
+                return (
+                  <SingleSearch
+                    key={hashtag._id}
+                    {...hashtag}
+                    closeSearch={closeSearch}
+                  />
+                )
               })}
           </section>
           {displayItems.length > 0 && allItems.length > 0 && (

@@ -3,6 +3,16 @@
   /* box-shadow: var(--light-shadow-white); */
 
   border-bottom: var(--border);
+  border-top: var(--border);
+}
+
+.tweetbox-header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem;
+  color: var(--clr-grey-6);
+  padding: 0 1rem;
 }
 
 .tweetBox-input {

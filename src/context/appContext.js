@@ -326,11 +326,11 @@ const AppProvider = ({ children }) => {
     })
     console.log(newFilteredUsers)
     setFilteredResults((prev) => {
-      return { ...prev, users: newFilteredUsers }
+      return { ...prev, users: newFilteredUsers || allResults.users }
     })
   }
 
-  const get_filtered_tweets = () => {
+  const get_filtered_tweets = (searchValue) => {
     const keysToBeIncluded = ['text']
     const newFilteredTweets = allResults.tweets.filter((tweet) => {
       const isFound = Object.entries(tweet)
@@ -338,13 +338,13 @@ const AppProvider = ({ children }) => {
         .map(([key, value]) => value)
         .join(' ')
         .toLowerCase()
-        .includes(globalSearch.toLowerCase())
+        .includes((searchValue || globalSearch).toLowerCase())
 
       if (isFound) return tweet
     })
     console.log('%cFILTERED TWEETS : ', 'color : yellow', newFilteredTweets)
     setFilteredResults((prev) => {
-      return { ...prev, tweets: newFilteredTweets }
+      return { ...prev, tweets: newFilteredTweets || allResults.tweets }
     })
   }
 
@@ -371,13 +371,13 @@ const AppProvider = ({ children }) => {
     if (value.startsWith('#')) setSearchType('hashtag')
     else setSearchType('all')
     get_filtered_users(value)
-    get_filtered_tweets()
-    get_filtered_hashtags()
+    get_filtered_tweets(value)
+    get_filtered_hashtags(value)
   }
 
   useEffect(() => {
     console.log('%cAPI Called ', 'color:red')
-    get_all_search_results()
+    state.user && get_all_search_results()
     // setupApp()
   }, [])
 
@@ -406,9 +406,11 @@ const AppProvider = ({ children }) => {
         getProfileFollowers,
         getProfileFollowing,
         globalSearch,
+        setGlobalSearch,
         searchType,
         handleGlobalSearch,
         get_filtered_search_results,
+        get_all_search_results,
         allResults,
         filteredResults,
         logout,
