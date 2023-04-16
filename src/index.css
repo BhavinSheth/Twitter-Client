@@ -96,12 +96,12 @@ Variables
   --border-color: rgb(217, 217, 217, 0.3);
   --transition: all 0.2s ease;
 
-  --toastify-color-light: #fff;
+  --toastify-color-light: var(--clr-gray-2) !important;
   --toastify-color-dark: #121212;
   --toastify-color-info: #3498db;
-  --toastify-color-success: #07bc0c;
+  --toastify-color-success: var(--twitter-color) !important;
   --toastify-color-warning: #f1c40f;
-  --toastify-color-error: #e74c3c;
+  --toastify-color-error: red !important;
   --toastify-color-transparent: rgba(255, 255, 255, 0.7);
 
   --toastify-icon-color-info: var(--toastify-color-info);
@@ -366,4 +366,17 @@ div#root {
 
 .hide {
   display: none !important;
+}
+
+.Toastify__toast-theme--light {
+  color: var(--grey1) !important;
+}
+
+.Toastify__close-button--light {
+  color: var(--grey1) !important;
+  opacity: 1 !important;
+}
+
+.Toastify__close-button--light:hover {
+  color: red !important;
 }

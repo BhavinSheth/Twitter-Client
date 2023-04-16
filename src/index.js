@@ -7,17 +7,19 @@ import { AppProvider } from './context/appContext'
 import { ToastContainer, Zoom } from 'react-toastify'
 import Spinner from './components/spinner/spinner'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-// import GoogleLogin from './components/google/googleLoginBtn'
+import GoogleLogin from './components/google/googleLoginBtn'
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      {/* <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}> */}
+      <GoogleLogin>
         <BrowserRouter>
           <Spinner />
           <App />
         </BrowserRouter>
-      </GoogleOAuthProvider>
+      </GoogleLogin>
+      {/* </GoogleOAuthProvider> */}
     </AppProvider>
     <ToastContainer
       position="top-right"

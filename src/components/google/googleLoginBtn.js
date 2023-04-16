@@ -1,13 +1,12 @@
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { Default } from 'react-toastify/dist/utils'
+import './googleLoginBtn.css'
 
-const GOOGLE_CLIENT_ID =
-  '1090090266803-m8vlo8s7h6tapjjf3heu46pt5pokdr4t.apps.googleusercontent.com'
-
-const GoogleLogin = () => {
+const GoogleLogin = ({ children }) => {
   return (
     <div className="googleLogin">
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID} />
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        {children}
+      </GoogleOAuthProvider>
     </div>
   )
 }

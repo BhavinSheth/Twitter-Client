@@ -19,7 +19,7 @@ const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/
 
 function TweetBox({ comment, username, tweetId }) {
   const [text, setText] = useState('')
-  const { user, configs, dispatch } = useAppContext()
+  const { user, configs, dispatch, get_all_search_results } = useAppContext()
 
   const createTweet = async () => {
     const res = await axios.post(
@@ -27,6 +27,7 @@ function TweetBox({ comment, username, tweetId }) {
       { text },
       configs
     )
+    get_all_search_results()
     toast.success('Tweet created succesfully')
     return res
   }
@@ -38,6 +39,7 @@ function TweetBox({ comment, username, tweetId }) {
       configs
     )
     toast.success(`you commented on ${username}'s tweet`)
+    get_all_search_results()
     return res
   }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './register.css'
 import axios from 'axios'
 import { useAppContext } from '../../context/appContext'
@@ -11,6 +11,8 @@ import {
 } from '../../context/globalConstants'
 
 function Register() {
+  const navigate = useNavigate()
+
   const [password, showPassword] = useState(false)
 
   const { dispatch, setTokenAndUserToLocalStorage } = useAppContext()
@@ -38,6 +40,7 @@ function Register() {
       const { token, user } = res.data
 
       setTokenAndUserToLocalStorage(token, user)
+      navigate('/home')
 
       console.log(res.data)
     } catch (error) {
