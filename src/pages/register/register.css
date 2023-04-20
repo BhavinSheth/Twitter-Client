@@ -5,10 +5,10 @@
   width: 100vw;
   background: linear-gradient(
       180deg,
-      rgba(225, 255, 2, 0.438) 0%,
+      rgba(133, 57, 214, 0.438) 0%,
       rgba(207, 215, 67, 0) 100%
     ),
-    url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmxvZyUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80')
+    url('https://images.unsplash.com/photo-1579869847557-1f67382cc158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1634&q=80s')
       center/cover no-repeat fixed;
   /* filter: blur(3px); */
 

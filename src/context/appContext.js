@@ -43,40 +43,8 @@ const initialState = {
   category: 'news',
   trends: {},
   searchText: '',
-  displayItems: [
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-  ],
-  allItems: [
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-    'bhavin',
-    'kiran',
-    'sheth',
-  ],
+  displayItems: ['bhavin', 'kiran'],
+  allItems: ['bhavin', 'kiran'],
   profile: undefined,
   profileTweets: [],
   profileComments: [],
@@ -313,6 +281,9 @@ const AppProvider = ({ children }) => {
   }
 
   const get_filtered_users = (searchValue) => {
+    searchValue =
+      searchValue[0] === '@' ? searchValue.substring(1) : searchValue
+
     const keysToBeIncluded = ['name', 'userName', 'email', 'bio']
     const newFilteredUsers = allResults.users.filter((user) => {
       const isFound = Object.entries(user)
@@ -368,7 +339,7 @@ const AppProvider = ({ children }) => {
 
   const get_filtered_search_results = (value) => {
     if (value.startsWith('@')) setSearchType('user')
-    if (value.startsWith('#')) setSearchType('hashtag')
+    else if (value.startsWith('#')) setSearchType('hashtag')
     else setSearchType('all')
     get_filtered_users(value)
     get_filtered_tweets(value)

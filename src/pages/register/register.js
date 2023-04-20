@@ -133,7 +133,7 @@ function Register() {
                     Login
                   </Link>
                 </div>
-                <Link to="/home" id="skip">
+                <Link to="/explore" id="skip">
                   skip
                 </Link>
               </div>

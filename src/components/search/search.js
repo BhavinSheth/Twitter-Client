@@ -7,8 +7,13 @@ import UserSearch from './userSearch'
 import { toast } from 'react-toastify'
 
 export const Search = () => {
-  const { globalSearch, handleGlobalSearch, filteredResults, allResults } =
-    useAppContext()
+  const {
+    globalSearch,
+    handleGlobalSearch,
+    filteredResults,
+    allResults,
+    searchType,
+  } = useAppContext()
   const [showSearchList, setShowSearchList] = useState(false)
   const { displayItems, allItems } = useAppContext()
   const closeSearch = () => {
@@ -67,7 +72,8 @@ export const Search = () => {
               }
             )} */}
 
-            {filteredResults.users &&
+            {(searchType === 'all' || searchType === 'user') &&
+              filteredResults.users &&
               filteredResults.users.map((user) => {
                 return (
                   <UserSearch
@@ -77,7 +83,8 @@ export const Search = () => {
                   />
                 )
               })}
-            {filteredResults.hashtags &&
+            {(searchType === 'all' || searchType === 'hashtag') &&
+              filteredResults.hashtags &&
               filteredResults.hashtags.map((hashtag) => {
                 return (
                   <SingleSearch

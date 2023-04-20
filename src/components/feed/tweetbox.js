@@ -15,21 +15,39 @@ import TextEditor from '../TextEditor'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { MdOutlineAddPhotoAlternate as AddImage } from 'react-icons/md'
+
 const defaultImg = `https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png`
 
 function TweetBox({ comment, username, tweetId }) {
   const [text, setText] = useState('')
+  const [image, setImage] = useState()
+  const [base64EncodedImage, setBase64EncodedImage] = useState()
   const { user, configs, dispatch, get_all_search_results } = useAppContext()
+
+  const handleImage = (e) => {
+    setImage(e.target.files[0])
+    console.log(e.target.files)
+    convertToBase64Encoded(e.target.files[0])
+  }
+  const convertToBase64Encoded = (image) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(image)
+    reader.onloadend = () => {
+      setBase64EncodedImage(reader.result)
+    }
+  }
 
   const createTweet = async () => {
     const res = await axios.post(
       `${SERVER_BASE_URL}/${user.userName}/tweets`,
-      { text },
+      { text, images: [base64EncodedImage] },
       configs
     )
+    console.log(20, res.data)
     get_all_search_results()
     toast.success('Tweet created succesfully')
-    return res
+    // return res
   }
 
   const commentTweet = async () => {
@@ -122,9 +140,26 @@ function TweetBox({ comment, username, tweetId }) {
               styles={progressBarStyles}
             />
           )}
-          <Button onClick={submitTweet} className="tweetbox-tweet">
-            {comment ? 'reply' : 'tweet'}
-          </Button>
+          <div className="tools-utilities">
+            <input
+              type="file"
+              multiple
+              id="imageInput"
+              style={{ display: 'none' }}
+              onChange={handleImage}
+            />
+            <label htmlFor="imageInput">
+              <AddImage type="file" className="icon" />
+            </label>
+
+            <Button
+              disabled={text.length > TWEET_MAX_LENGTH}
+              onClick={submitTweet}
+              className="tweetbox-tweet"
+            >
+              {comment ? 'reply' : 'tweet'}
+            </Button>
+          </div>
         </div>
       </form>
     </div>

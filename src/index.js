@@ -12,14 +12,12 @@ import GoogleLogin from './components/google/googleLoginBtn'
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>
-      {/* <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}> */}
       <GoogleLogin>
         <BrowserRouter>
           <Spinner />
           <App />
         </BrowserRouter>
       </GoogleLogin>
-      {/* </GoogleOAuthProvider> */}
     </AppProvider>
     <ToastContainer
       position="top-right"

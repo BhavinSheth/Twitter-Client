@@ -20,6 +20,7 @@ function Tweet({
   text,
   parent,
   child,
+  images,
   isRetweeted,
   getSingleTweet,
   getProfileTweets,
@@ -60,9 +61,11 @@ function Tweet({
           </div>
           {/* <div className="post-text">{text}</div> */}
           <ColoredText className={`post-text`} text={text} />
-          {/* <div className="image-container">
-          <img src={image} alt="" className="img" width={'400px'} />
-        </div> */}
+          {images.length > 0 && (
+            <div className="image-container">
+              <img src={images[0]} alt="" className="img" width={'400px'} />
+            </div>
+          )}
           <Utilities
             comments={comments}
             likes={likes}

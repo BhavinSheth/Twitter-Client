@@ -139,13 +139,15 @@ function Login() {
                   skip
                 </Link>
               </div>
-              <GoogleLogin
-                clientId={GOOGLE_CLIENT_ID}
-                buttonText="Login"
-                onSuccess={googleResSuccess}
-                onFailure={googleResFailure}
-                cookiePolicy={'single_host_origin'}
-              />
+              <div className="place-center">
+                <GoogleLogin
+                  clientId={GOOGLE_CLIENT_ID}
+                  buttonText="Login"
+                  onSuccess={googleResSuccess}
+                  onFailure={googleResFailure}
+                  cookiePolicy={'single_host_origin'}
+                />
+              </div>
             </div>
           </form>
         </div>

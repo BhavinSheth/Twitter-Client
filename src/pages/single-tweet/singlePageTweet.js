@@ -10,7 +10,7 @@ function SingleTweetPage() {
   const { tweetId, userName } = useParams()
   return (
     <div className="single-tweet-container">
-      <Header headerName="Tweet" />
+      <Header headerName="Thread" />
       <TweetContainer main tweetId={tweetId} userName={userName} showComments />
     </div>
   )
