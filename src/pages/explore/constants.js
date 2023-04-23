@@ -1,10 +1,10 @@
 const constants = [
+  'educational',
   'news',
   'entertainment',
   'sports',
   'music',
   'finance',
-  'educational',
   'games',
   'politics',
   'movies',

@@ -26,9 +26,11 @@ function SinglePerson({
   const {
     dispatch,
     configs,
+    profile,
     getUserProfile,
     getProfileFollowers,
     getProfileFollowing,
+    get_all_search_results,
   } = useAppContext()
 
   const follow_or_unfollow_user = async (e) => {
@@ -43,9 +45,12 @@ function SinglePerson({
       )
       console.log(res.data)
       toast.success(`you ${doYouFollow ? 'unfollowed ' : 'followed '} ${name}`)
-      getProfileFollowers && getProfileFollowers()
-      getProfileFollowing && getProfileFollowing()
-      getUserProfile && getUserProfile()
+      if (profile) {
+        getProfileFollowers && getProfileFollowers()
+        getProfileFollowing && getProfileFollowing()
+        getUserProfile && getUserProfile()
+      }
+      get_all_search_results && get_all_search_results()
     } catch (error) {
       console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)

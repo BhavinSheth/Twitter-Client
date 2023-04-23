@@ -75,7 +75,10 @@ function Profile() {
                 <div className="bg-img-container">
                   <img
                     className="dashboard-bg-img"
-                    src="https://thumbs.dreamstime.com/b/sun-rays-mountain-landscape-5721010.jpg"
+                    src={
+                      profile.bannerImg ||
+                      `https://thumbs.dreamstime.com/b/sun-rays-mountain-landscape-5721010.jpg`
+                    }
                     alt=""
                     srcset=""
                   />

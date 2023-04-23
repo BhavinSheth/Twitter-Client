@@ -48,6 +48,7 @@ function Utilities({
       getProfileTweets && getProfileTweets()
       getProfileLikes && getProfileLikes()
       get_all_search_results && get_all_search_results()
+      getSingleTweet && getSingleTweet()
       toast.success(`${isLiked ? ' like undone' : 'liked succesfully'}`)
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)

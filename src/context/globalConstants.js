@@ -28,8 +28,9 @@ export const GET_PROFILE_OUTLET_ERROR = 'GET_PROFILE_OUTLET_ERROR'
 
 export const LOGOUT_USER = 'LOGOUT_USER'
 
-export const TWEET_MAX_LENGTH = 300
-export const SERVER_BASE_URL = 'http://localhost:3000'
+export const TWEET_MAX_LENGTH = 350
+// export const SERVER_BASE_URL = 'http://localhost:3000'
+export const SERVER_BASE_URL = 'https://twitter-server-s6vz.onrender.com'
 export const CLIENT_BASE_URL = 'http://localhost:5000'
 
 export const PROFILE_OUTLET = {

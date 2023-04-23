@@ -29,6 +29,7 @@ function TweetBox({ comment, username, tweetId }) {
     setImage(e.target.files[0])
     console.log(e.target.files)
     convertToBase64Encoded(e.target.files[0])
+    toast.success('image uploaded')
   }
   const convertToBase64Encoded = (image) => {
     const reader = new FileReader()
