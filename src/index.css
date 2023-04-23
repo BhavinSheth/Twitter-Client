@@ -380,3 +380,17 @@ div#root {
 .Toastify__close-button--light:hover {
   color: red !important;
 }
+
+@media only screen and (max-width: 500px) {
+  .Toastify__toast-container--top-right {
+    top: 1rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  .Toastify__toast-container {
+    width: 70vw !important;
+  }
+  .Toastify__toast {
+    margin-bottom: 0.6rem !important;
+  }
+}
