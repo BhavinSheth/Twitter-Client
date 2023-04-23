@@ -99,3 +99,10 @@
 .follower-count {
   color: var(--clr-gray-7);
 }
+
+@media screen and (max-height: 500px) {
+  .dashboard-img-containers {
+    grid-auto-flow: column;
+    gap: 0.15rem;
+  }
+}
