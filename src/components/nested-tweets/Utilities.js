@@ -83,8 +83,10 @@ function Utilities({
   }
 
   useEffect(() => {
-    setIsLiked(likes.includes(user.userId))
-    setIsRetweeted(retweets.includes(user.userId))
+    if (user) {
+      setIsLiked(likes.includes(user.userId))
+      setIsRetweeted(retweets.includes(user.userId))
+    }
   }, [
     getHomePageTweets,
     getSingleTweet,

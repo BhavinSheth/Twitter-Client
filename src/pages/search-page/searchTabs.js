@@ -11,25 +11,31 @@ function SearchTabs() {
 
   switch (type) {
     case 'tweets':
-      return (
-        filteredResults.tweets && <TweetList tweets={filteredResults.tweets} />
+      return filteredResults.tweets.length > 0 ? (
+        <TweetList tweets={filteredResults.tweets} />
+      ) : (
+        <div className="not-found">no tweets found</div>
       )
 
     case 'latest':
-      return (
-        filteredResults.tweets && <TweetList tweets={filteredResults.tweets} />
+      return filteredResults.tweets.length > 0 ? (
+        <TweetList tweets={filteredResults.tweets} />
+      ) : (
+        <div className="not-found">no tweets found</div>
       )
 
     case 'people':
-      return (
-        filteredResults.users && (
-          <PersonList peopleList={filteredResults.users} />
-        )
+      return filteredResults.users.length > 0 ? (
+        <PersonList peopleList={filteredResults.users} />
+      ) : (
+        <div className="not-found">no users found</div>
       )
 
     default:
-      return (
-        filteredResults.tweets && <TweetList tweets={filteredResults.tweets} />
+      return filteredResults.tweets ? (
+        <TweetList tweets={filteredResults.tweets} />
+      ) : (
+        <div className="not-found">no tweets found</div>
       )
   }
 }

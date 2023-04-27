@@ -104,7 +104,6 @@ const AppProvider = ({ children }) => {
       const { data } = res
       dispatch({ type: GET_TRENDS_SUCCESS, payload: { data } })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_TRENDS_ERROR })
     }
@@ -116,17 +115,14 @@ const AppProvider = ({ children }) => {
       const res = await axios.get(`${SERVER_BASE_URL}/home`)
       const { data } = res
       dispatch({ type: GET_HOMEPAGE_TWEETS_SUCCESS, payload: { data } })
-      console.log(res)
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
-      console.log(error)
       dispatch({ type: GET_HOMEPAGE_TWEETS_ERROR })
     }
   }
 
   const setupApp = () => {
     dispatch({ type: USER_SETUP_START })
-    console.log('setup started', state.isLoading)
     getTokenAndUserFromLocalStorage()
   }
 
@@ -136,14 +132,12 @@ const AppProvider = ({ children }) => {
       const res = await axios.post(
         `${SERVER_BASE_URL}/${username || state.profile.userName}`,
         {
-          visitingUserId: state.user.userId,
+          visitingUserId: state.user && state.user.userId,
         }
       )
-      console.info('%c in user profile', 'color:blue', res.data)
       const { data } = res
       dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: { data } })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
 
       dispatch({ type: GET_USER_PROFILE_ERROR })
@@ -157,13 +151,11 @@ const AppProvider = ({ children }) => {
         `${SERVER_BASE_URL}/${state.profile.userName}/tweets`
       )
       const { tweets } = res.data
-      console.log(tweets, 'get profile tweet')
       dispatch({
         type: GET_PROFILE_OUTLET_SUCCESS,
         payload: { tweets, outletType: PROFILE_OUTLET.profileTweets },
       })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
@@ -176,13 +168,11 @@ const AppProvider = ({ children }) => {
         `${SERVER_BASE_URL}/${state.profile.userName}/likes`
       )
       const { liked } = res.data
-      console.log(liked, 'get profile likes')
       dispatch({
         type: GET_PROFILE_OUTLET_SUCCESS,
         payload: { liked, outletType: PROFILE_OUTLET.profileLikes },
       })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
@@ -195,13 +185,11 @@ const AppProvider = ({ children }) => {
         `${SERVER_BASE_URL}/${state.profile.userName}/comments`
       )
       const { commented } = res.data
-      console.log(res.data, 'get profile comments')
       dispatch({
         type: GET_PROFILE_OUTLET_SUCCESS,
         payload: { commented, outletType: PROFILE_OUTLET.profileComments },
       })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
@@ -215,13 +203,11 @@ const AppProvider = ({ children }) => {
         { visitingUserId: state.user.userId }
       )
       const { followers } = res.data
-      console.log(res.data, 'get profile followers')
       dispatch({
         type: GET_PROFILE_OUTLET_SUCCESS,
         payload: { followers, outletType: PROFILE_OUTLET.profileFollowers },
       })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
@@ -235,13 +221,11 @@ const AppProvider = ({ children }) => {
         { visitingUserId: state.user.userId }
       )
       const { following } = res.data
-      console.log(res.data, 'get profile following')
       dispatch({
         type: GET_PROFILE_OUTLET_SUCCESS,
         payload: { following, outletType: PROFILE_OUTLET.profileFollowing },
       })
     } catch (error) {
-      console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
       dispatch({ type: GET_PROFILE_OUTLET_ERROR })
     }
@@ -250,6 +234,7 @@ const AppProvider = ({ children }) => {
   const logout = () => {
     remove_user_and_token_from_localstorage()
     dispatch({ type: LOGOUT_USER })
+    get_all_search_results()
     toast.success('logout succesfull')
   }
 
@@ -268,15 +253,13 @@ const AppProvider = ({ children }) => {
   const get_all_search_results = async () => {
     try {
       const res = await axios.post(`${SERVER_BASE_URL}/search`, {
-        visitingUserId: state.user.userId,
+        visitingUserId: state.user && state.user.userId,
       })
       const { data } = res
-      console.log(data)
       setAllResults(data)
       setFilteredResults(data)
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)
-      console.log(error)
     }
   }
 
@@ -295,7 +278,6 @@ const AppProvider = ({ children }) => {
 
       if (isFound) return user
     })
-    console.log(newFilteredUsers)
     setFilteredResults((prev) => {
       return { ...prev, users: newFilteredUsers || allResults.users }
     })
@@ -313,7 +295,6 @@ const AppProvider = ({ children }) => {
 
       if (isFound) return tweet
     })
-    console.log('%cFILTERED TWEETS : ', 'color : yellow', newFilteredTweets)
     setFilteredResults((prev) => {
       return { ...prev, tweets: newFilteredTweets || allResults.tweets }
     })
@@ -331,7 +312,6 @@ const AppProvider = ({ children }) => {
 
       if (isFound) return hashtag
     })
-    console.log('%cFILTERED HASHTAGS : ', 'color : blue', newFilteredHashtags)
     setFilteredResults((prev) => {
       return { ...prev, hashtags: newFilteredHashtags }
     })
@@ -347,8 +327,7 @@ const AppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log('%cAPI Called ', 'color:red')
-    state.user && get_all_search_results()
+    get_all_search_results()
     // setupApp()
   }, [])
 

@@ -15,7 +15,6 @@ function TweetContainer({ main, showComments, tweetId, userName, child }) {
       const res = await axios.get(
         `${SERVER_BASE_URL}/${userName}/status/${tweetId}`
       )
-      console.log(res.data)
       setLocalTweet(res.data)
     } catch (error) {
       console.log(error)

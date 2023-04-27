@@ -45,7 +45,6 @@ function TweetBox({ comment, username, tweetId }) {
       { text, images: [base64EncodedImage] },
       configs
     )
-    console.log(20, res.data)
     get_all_search_results()
     toast.success('Tweet created succesfully')
     // return res
@@ -68,7 +67,6 @@ function TweetBox({ comment, username, tweetId }) {
     try {
       // Tweet
       const res = comment ? await commentTweet() : await createTweet()
-      console.log(res)
       // Comment
     } catch (error) {
       toast.error(error.response ? error.response.data.message : error.message)

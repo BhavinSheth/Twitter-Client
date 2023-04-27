@@ -18,7 +18,6 @@ import SearchTabs from './pages/search-page/searchTabs'
 
 function App() {
   const { isLoggedIn } = useAppContext()
-  const navigate = useNavigate()
   return (
     <Routes>
       <Route path="/" Component={sharedLayout}>
@@ -32,6 +31,7 @@ function App() {
         ></Route>
 
         <Route path="explore" Component={Explore}>
+          <Route index Component={Tabs} />
           <Route path={`tabs/:category`} Component={Tabs}></Route>
         </Route>
 

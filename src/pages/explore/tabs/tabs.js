@@ -11,7 +11,7 @@ function Tabs() {
   const { category: urlCategory } = useParams()
 
   async function fetchData() {
-    await getTrends(urlCategory)
+    await getTrends(urlCategory || 'educational')
   }
 
   useEffect(() => {
