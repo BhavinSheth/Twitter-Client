@@ -16,10 +16,30 @@ import {
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import Header from '../../components/common-headers/Header'
+import EditModal from './EditModal'
+import { Chip } from '@mui/material'
+import { FcGoogle } from 'react-icons/fc'
+
+const months = [
+  'Jan',
+  'Feb',
+  'March',
+  'Apr',
+  'May',
+  'June',
+  'July',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
 
 function Profile() {
+  let subtitle
+  const [modalIsOpen, setIsOpen] = useState(false)
   const { userName } = useParams()
-  const { profile, getUserProfile, user, dispatch, configs } = useAppContext()
+  const { profile, getUserProfile, dispatch, configs } = useAppContext()
 
   const followUser = async (username) => {
     dispatch({ type: START_SPINNER })
@@ -60,9 +80,52 @@ function Profile() {
 
     dispatch({ type: STOP_SPINNER })
   }
+
   useEffect(() => {
     getUserProfile(userName)
   }, [userName])
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'black',
+      display: 'grid',
+      borderRadius: '15px',
+    },
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  const getBirthdate = (birthdate) => {
+    const date = new Date(birthdate)
+    const displayDate = `${
+      months[date.getMonth()]
+    } ${date.getDate()}, ${date.getFullYear()}`
+
+    return displayDate
+  }
+
+  const getJoinedDate = (joinedDate) => {
+    const date = new Date(joinedDate)
+    const displayDate = `${months[date.getMonth()]}, ${date.getFullYear()}`
+
+    return displayDate
+  }
 
   return (
     <>
@@ -94,7 +157,9 @@ function Profile() {
             </div>
             <div className="edit-profile">
               {profile.status === 'edit' ? (
-                <button className="btn edit-btn">edit profile</button>
+                <button className="btn edit-btn" onClick={openModal}>
+                  edit profile
+                </button>
               ) : profile.status === 'unfollow' ? (
                 <button className="btn edit-btn" onClick={unFollowUser}>
                   unfollow
@@ -104,7 +169,23 @@ function Profile() {
                   follow
                 </button>
               )}
+
+              {/* {profile.isLoggedInByGoogle && (
+                <Chip
+                  label="Google SignIn"
+                  className="custom-chip"
+                  icon={<FcGoogle />}
+                />
+              )} */}
             </div>
+            <EditModal
+              openModal={openModal}
+              closeModal={closeModal}
+              modalIsOpen={modalIsOpen}
+              subtitle={subtitle}
+              afterOpenModal={afterOpenModal}
+              profile={profile}
+            />
             <div className="dashboard-info">
               <div className="dashboard-name-username">
                 <div className="dashboard-name">{profile.name}</div>
@@ -116,10 +197,11 @@ function Profile() {
                   <MdOutlineLocationOn /> <span>Gujarat, India</span>
                 </div>
                 <div className="bio-containers">
-                  <HiCake /> <span>Born May 11, 2001</span>
+                  <HiCake /> <span>Born {getBirthdate(profile.birthdate)}</span>
                 </div>
                 <div className="bio-containers">
-                  <RxCalendar /> <span>Joined June 2020</span>
+                  <RxCalendar />{' '}
+                  <span>Joined {getJoinedDate(profile.createdAt)}</span>
                 </div>
               </div>
               <div className="follower-following">

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { CLIENT_BASE_URL } from '../../context/globalConstants'
 import Utilities from './Utilities'
 import { useAppContext } from '../../context/appContext'
+import { BsDot } from 'react-icons/bs'
 
 function Tweet({
   _id,
@@ -18,9 +19,11 @@ function Tweet({
   comments,
   createdBy,
   text,
+  createdAt,
   parent,
   child,
   images,
+  formattedCreatedAt,
   isRetweeted,
   getSingleTweet,
   getProfileTweets,
@@ -28,6 +31,45 @@ function Tweet({
 }) {
   const { name, userName, profileImg, isVerified } = createdBy
   const { profile } = useAppContext()
+  const months = [
+    'Jan',
+    'Feb',
+    'March',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+
+  const getTime = () => {
+    let displayTime
+    const currentTime = new Date()
+
+    const createdTime = new Date(createdAt)
+    const year = createdTime.getFullYear()
+    const month = createdTime.getMonth()
+    const day = createdTime.getDate()
+
+    const diffInMs = currentTime - createdTime
+    const diffInSecs = parseInt(diffInMs / 1000)
+    const diffInMins = parseInt(diffInSecs / 60)
+    const diffInHours = parseInt(diffInMins / 60)
+
+    if (diffInSecs < 60) displayTime = `${diffInSecs}s`
+    else if (diffInMins < 60) displayTime = `${diffInMins}m`
+    else if (diffInHours < 24) displayTime = `${diffInHours}h`
+    else if (currentTime.getFullYear() - year < 1)
+      displayTime = `${day} ${months[month]}`
+    else displayTime = `${day} ${months[month]}, ${year}`
+
+    return displayTime
+  }
+
   return (
     <div className="post-container">
       {isRetweeted && (
@@ -58,6 +100,12 @@ function Tweet({
               {isVerified && <VerifiedUserIcon className="verified" />}
             </span>
             <span className="username">@{userName}</span>
+            {createdAt && (
+              <div className="time-container">
+                <BsDot className="dot" />
+                <div className="time">{getTime()}</div>
+              </div>
+            )}
           </div>
           {/* <div className="post-text">{text}</div> */}
           <ColoredText className={`post-text`} text={text} />

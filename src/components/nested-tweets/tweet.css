@@ -77,3 +77,13 @@
   width: 100%;
   height: 100%;
 }
+
+.dot {
+  font-size: 1.3rem;
+}
+
+.time-container {
+  color: var(--clr-grey-5);
+  display: grid;
+  grid-auto-flow: column;
+}
