@@ -37,8 +37,8 @@ function EditModal({
   afterOpenModal,
   closeModal,
   profile,
+  getUserProfile,
 }) {
-  console.log(profile)
   const {
     tweets,
     likes,
@@ -108,7 +108,7 @@ function EditModal({
     editType === 'banner' &&
       toast.info("dont't change aspect ratio if possible")
     const image = e.target.files[0]
-    console.log(e.target.files)
+    // console.log(e.target.files)
     try {
       const base64PreviewImg = await getBase64EncodedImage(image)
       editType === 'banner'
@@ -243,6 +243,8 @@ function EditModal({
         configs
       )
       toast.success(`${res.data.message}`)
+      closeModal()
+      getUserProfile()
     } catch (error) {
       console.log(error)
       toast.error(error.response ? error.response.data.message : error.message)
@@ -251,7 +253,7 @@ function EditModal({
   }
 
   const handleChange = (e) => {
-    console.log(e, e.target.name, e.target.value)
+    // console.log(e, e.target.name, e.target.value)
     setUpdatedProfile({ ...updatedProfile, [e.target.name]: e.target.value })
   }
 

@@ -185,6 +185,7 @@ function Profile() {
               subtitle={subtitle}
               afterOpenModal={afterOpenModal}
               profile={profile}
+              getUserProfile={getUserProfile}
             />
             <div className="dashboard-info">
               <div className="dashboard-name-username">
