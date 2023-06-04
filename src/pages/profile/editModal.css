@@ -166,7 +166,8 @@
   padding: 1rem !important;
 }
 
-.css-6od3lo-MuiChip-label {
+.css-6od3lo-MuiChip-label,
+.css-9iedg7 {
   overflow: initial !important;
   color: var(--clr-grey-2);
   color: white;
