@@ -395,7 +395,7 @@ function EditModal({
               <EditTextArea
                 name="bio"
                 label="Bio"
-                text={updateProfile.bio}
+                text={updatedProfile.bio}
                 onChange={handleChange}
               />
               <EditBirthdate

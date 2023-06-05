@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 import { useAppContext } from '../../../context/appContext'
 import Tweet from '../../../components/nested-tweets/Tweet'
 
-function ProfileTweets() {
-  const { getProfileTweets, profileTweets } = useAppContext()
+function ProfileTweets({ params }) {
+  const { getProfileTweets, profileTweets, profile } = useAppContext()
 
   useEffect(() => {
     getProfileTweets()
-  }, [])
+  }, [profile])
 
   return (
     <div>
